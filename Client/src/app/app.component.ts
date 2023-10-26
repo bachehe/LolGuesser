@@ -9,14 +9,8 @@ import { Character } from './shared/models/character';
 })
 export class AppComponent implements OnInit {
   title = 'Client';
-  characters: Character[] = [];
-
-  constructor(private http: HttpClient){}
+  constructor(){}
 
   ngOnInit(): void {
-    this.http.get<Character[]>('https://localhost:7224/api/Character').subscribe({
-      next: response => this.characters = response,
-      error: error => console.log(error),
-    })
   }
 }

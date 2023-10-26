@@ -4,5 +4,4 @@ export interface Character {
   ad: number;
   ap: number;
   hpGain: number;
-  id: number;
 }
