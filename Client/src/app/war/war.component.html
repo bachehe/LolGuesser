@@ -1,1 +1,50 @@
-<p>war works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li class="list-unstyled">
+          <h1>{{ champions[0].name }}</h1>
+          <ng-container *ngIf="champions[0].hp !== undefined">
+            <h1 class="d-inline">{{ champions[0].hp }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">hp</p>
+          </ng-container>
+          <ng-container *ngIf="champions[0].ad !== undefined">
+            <h1 class="d-inline">{{ champions[0].ad }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">ad</p>
+          </ng-container>
+          <ng-container *ngIf="champions[0].ap !== undefined">
+            <h1 class="d-inline">{{ champions[0].ap }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">ap</p>
+          </ng-container>
+          <ng-container *ngIf="champions[0].hpGain !== undefined">
+            <h1 class="d-inline">{{ champions[0].hpGain }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">hp gain</p>
+          </ng-container>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-unstyled">
+          <h1>{{ champions[1].name }}</h1>
+          <ng-container *ngIf="champions[1].hp !== undefined">
+            <h1 class="d-inline">{{ champions[1].hp }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">hp</p>
+          </ng-container>
+          <ng-container *ngIf="champions[1].ad !== undefined">
+            <h1 class="d-inline">{{ champions[1].ad }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">ad</p>
+          </ng-container>
+          <ng-container *ngIf="champions[1].ap !== undefined">
+            <h1 class="d-inline">{{ champions[1].ap }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">ap</p>
+          </ng-container>
+          <ng-container *ngIf="champions[1].hpGain !== undefined">
+            <h1 class="d-inline">{{ champions[1].hpGain }}</h1>
+            <p class="text-light-emphasis d-inline ml-1">hp gain</p>
+          </ng-container>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
