@@ -1,1 +1,9 @@
-<h1>spsiszs</h1>
+<app-nav-bar></app-nav-bar>
+
+<div class="container" style="margin-top: 50px;">
+  <ul>
+    <li class="list-unstyled" *ngFor="let char of characters">
+      <h1>{{char.name}} - {{char.hp}}</h1>
+    </li>
+  </ul>
+</div>
