@@ -14,7 +14,11 @@ export class WarComponent implements OnInit{
   constructor(private warService: WarService){}
 
   ngOnInit(): void {
-
+    // this.warService.getWarCharacters().subscribe({
+    //   next: response => this.champions = response,
+    // });
+  }
+  onButtonClick(): void {
     this.warService.getWarCharacters().subscribe({
       next: response => this.champions = response,
     });

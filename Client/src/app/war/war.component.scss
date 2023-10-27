@@ -2,5 +2,21 @@ h1{
   color: cyan;
 }
 p{
- font-size: 32px;
+ font-size: 38px;
+}
+.vs-line {
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  flex-grow: 1;
+  height: 2px;
+  background-color: white;
+}
+
+.vs {
+  margin: 0 10px;
+  color: white;
+  font-size: 24px;
 }
