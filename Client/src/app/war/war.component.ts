@@ -75,15 +75,16 @@ export class WarComponent implements OnInit{
   }
   private onWin(): void{
     console.log('you win');
-    this.displayedValue = false;
+
     this.delay(1500).then(any =>{
+      this.displayedValue = false;
       this.onButtonClick();
     })
   }
   private onLost(): void{
     console.log('you lost');
-    this.displayedValue = false;
     this.delay(1500).then(any =>{
+      this.displayedValue = false;
       this.onButtonClick();
     })
   }
