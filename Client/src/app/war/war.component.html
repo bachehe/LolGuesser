@@ -1,50 +1,29 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <ul class="list-group">
-        <li class="list-unstyled">
-          <h1>{{ champions[0].name }}</h1>
-          <ng-container *ngIf="champions[0].hp !== undefined">
-            <h1 class="d-inline">{{ champions[0].hp }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">hp</p>
-          </ng-container>
-          <ng-container *ngIf="champions[0].ad !== undefined">
-            <h1 class="d-inline">{{ champions[0].ad }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">ad</p>
-          </ng-container>
-          <ng-container *ngIf="champions[0].ap !== undefined">
-            <h1 class="d-inline">{{ champions[0].ap }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">ap</p>
-          </ng-container>
-          <ng-container *ngIf="champions[0].hpGain !== undefined">
-            <h1 class="d-inline">{{ champions[0].hpGain }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">hp gain</p>
-          </ng-container>
-        </li>
-      </ul>
+  <div class="d-grid gap-2">
+    <button class="btn btn-lg btn-primary" (click)="onButtonClick()" type="button">click</button>
+    <h1 class="d-inline ml-1">Which character has more basic
+      <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">hp?</p>
+      <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">ad?</p>
+      <p *ngIf="champions[0].ap !== undefined" class="text-light-emphasis d-inline ml-1">ap?</p>
+      <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">hp gain?</p>
+    </h1>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 100px;">
+  <div class="row justify-content-center">
+    <div class="col-md-5 text-center">
+      <h1>{{ champions[0].name }}</h1>
     </div>
-    <div class="col-md-6">
-      <ul class="list-group">
-        <li class="list-unstyled">
-          <h1>{{ champions[1].name }}</h1>
-          <ng-container *ngIf="champions[1].hp !== undefined">
-            <h1 class="d-inline">{{ champions[1].hp }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">hp</p>
-          </ng-container>
-          <ng-container *ngIf="champions[1].ad !== undefined">
-            <h1 class="d-inline">{{ champions[1].ad }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">ad</p>
-          </ng-container>
-          <ng-container *ngIf="champions[1].ap !== undefined">
-            <h1 class="d-inline">{{ champions[1].ap }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">ap</p>
-          </ng-container>
-          <ng-container *ngIf="champions[1].hpGain !== undefined">
-            <h1 class="d-inline">{{ champions[1].hpGain }}</h1>
-            <p class="text-light-emphasis d-inline ml-1">hp gain</p>
-          </ng-container>
-        </li>
-      </ul>
+    <div class="col-md-2 text-center">
+      <div class="vs-line">
+        <div class="line"></div>
+        <div class="vs">vs</div>
+        <div class="line"></div>
+      </div>
+    </div>
+    <div class="col-md-5 text-center">
+      <h1>{{ champions[1].name }}</h1>
     </div>
   </div>
 </div>
