@@ -1,4 +1,5 @@
 <div class="container">
+
   <div class="d-grid gap-2">
     <button class="btn btn-lg btn-primary" (click)="onButtonClick()" type="button">click</button>
     <h1 class="d-inline ml-1">Which character has more basic
@@ -13,7 +14,15 @@
 <div class="container" style="margin-top: 100px;">
   <div class="row justify-content-center">
     <div class="col-md-5 text-center">
+      <button class="btn btn-lg" (click)="userChoice('left')" type="button">click</button>
       <h1>{{ champions[0].name }}</h1>
+      <div *ngIf="displayedValue">
+        <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[0].hp }}</p>
+        <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[0].ad }}</p>
+        <p *ngIf="champions[0].ap !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[0].ap }}</p>
+        <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[0].hpGain }}</p>
+      </div>
+
     </div>
     <div class="col-md-2 text-center">
       <div class="vs-line">
@@ -23,7 +32,14 @@
       </div>
     </div>
     <div class="col-md-5 text-center">
+      <button class="btn btn-lg" (click)="userChoice('right')" type="button">click</button>
       <h1>{{ champions[1].name }}</h1>
+      <div *ngIf="displayedValue">
+        <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[1].hp }}</p>
+        <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[1].ad }}</p>
+        <p *ngIf="champions[0].ap !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[1].ap }}</p>
+        <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">{{ champions[1].hpGain }}</p>
+      </div>
     </div>
   </div>
 </div>
