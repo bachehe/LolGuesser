@@ -33,25 +33,27 @@ namespace API.Controllers
             var champions = await _characterRepository.ListAllAsync();
 
             var warCharacters = WarChampions.Generate(champions);
-            //var data = _mapper.Map<IReadOnlyList<Character>, IReadOnlyList<CharacterDto>>(warCharacters);
 
-            //var temp = data.Select(x => x.PictureUrl);
+            var dataUrlFirst = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
+            var dataUrlSecond= _mapper.Map<Character, CharacterDto>(warCharacters[1]);
 
-            var randomIndex = new Random().Next(3, 13);
+            var war = new List<CharacterDto>() { dataUrlFirst, dataUrlSecond };
+
+            var randomIndex = new Random().Next(3, 14);
 
             return (PropertyEnum)randomIndex switch
             {
-                PropertyEnum.Hp => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.Hp })),
-                PropertyEnum.HpGain => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.HpGain })),
-                PropertyEnum.Mana => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.Mana })),
-                PropertyEnum.ManaGain => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.ManaGain })),
-                PropertyEnum.Ad => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.Ad })),
-                PropertyEnum.As => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.As })),
-                PropertyEnum.Armor => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.Armor })),
-                PropertyEnum.ArmorGain => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.ArmorGain })),
-                PropertyEnum.Mr => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.Mr })),
-                PropertyEnum.MS => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.MS })),
-                PropertyEnum.Range => Ok(warCharacters.Select(x => new { x.Name, x.PictureUrl, x.Range })),
+                PropertyEnum.Hp => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Hp })),
+                PropertyEnum.HpGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.HpGain })),
+                PropertyEnum.Mana => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Mana })),
+                PropertyEnum.ManaGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.ManaGain })),
+                PropertyEnum.Ad => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Ad })),
+                PropertyEnum.As => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.As })),
+                PropertyEnum.Armor => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Armor })),
+                PropertyEnum.ArmorGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.ArmorGain })),
+                PropertyEnum.Mr => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Mr })),
+                PropertyEnum.MS => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.MS })),
+                PropertyEnum.Range => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Range })),
                 _ => BadRequest()
             };
         }

@@ -14,12 +14,10 @@ namespace API.Helpers
         }
         public string Resolve(Character source, CharacterDto destination, string destMember, ResolutionContext context)
         {
-            var pictureUrl = string.Empty;
-            //TODO: source.PictureUrl
-            if (string.IsNullOrEmpty(pictureUrl))
+            if (string.IsNullOrEmpty(source.PictureUrl))
                 return string.Empty;
 
-            return _cfg["ApiUrl"] + pictureUrl;
+            return _cfg["ApiUrl"] + source.PictureUrl;
         }
     }
 }
