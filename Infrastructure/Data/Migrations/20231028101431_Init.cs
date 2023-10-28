@@ -17,10 +17,18 @@ namespace Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    PictureUrl = table.Column<string>(type: "TEXT", nullable: false),
                     Hp = table.Column<double>(type: "REAL", nullable: false),
+                    HpGain = table.Column<double>(type: "REAL", nullable: false),
+                    Mana = table.Column<double>(type: "REAL", nullable: false),
+                    ManaGain = table.Column<double>(type: "REAL", nullable: false),
                     Ad = table.Column<double>(type: "REAL", nullable: false),
-                    Ap = table.Column<double>(type: "REAL", nullable: false),
-                    HpGain = table.Column<double>(type: "REAL", nullable: false)
+                    As = table.Column<double>(type: "REAL", nullable: false),
+                    Armor = table.Column<double>(type: "REAL", nullable: false),
+                    ArmorGain = table.Column<double>(type: "REAL", nullable: false),
+                    Mr = table.Column<double>(type: "REAL", nullable: false),
+                    MS = table.Column<double>(type: "REAL", nullable: false),
+                    Range = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {

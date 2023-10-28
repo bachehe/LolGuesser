@@ -14,10 +14,10 @@ namespace Infrastructure.Data
         {
             if (!ctx.Champions.Any())
             {
-                var championsData = File.ReadAllText("../Infrastructure/Data/SeedData/champions.json");
-                var brands = JsonSerializer.Deserialize<List<Character>>(championsData);
+                var championsData = File.ReadAllText("../Infrastructure/Data/SeedData/championsData.json");
+                var champions = JsonSerializer.Deserialize<List<Character>>(championsData);
 
-                ctx.Champions.AddRange(brands);
+                ctx.Champions.AddRange(champions);
             }
 
             if (ctx.ChangeTracker.HasChanges())

@@ -18,10 +18,9 @@ export class WarComponent implements OnInit{
   constructor(private warService: WarService){}
 
   ngOnInit(): void {
-    //this.onButtonClick();
   }
 
-  onButtonClick(): void {
+  getCharacters(): void {
     this.warService.getWarCharacters().subscribe({
       next: response => this.champions = response,
     });
@@ -46,11 +45,6 @@ export class WarComponent implements OnInit{
     }
   }
 
-  //on click schema:
-  //choose character
-  //validate result
-  //show hp
-  //select next
   userChoice(side: string): void{
     this.winnerCharacter();
 
@@ -75,17 +69,16 @@ export class WarComponent implements OnInit{
   }
   private onWin(): void{
     console.log('you win');
-
     this.delay(1500).then(any =>{
       this.displayedValue = false;
-      this.onButtonClick();
+      this.getCharacters();
     })
   }
   private onLost(): void{
     console.log('you lost');
     this.delay(1500).then(any =>{
       this.displayedValue = false;
-      this.onButtonClick();
+      this.getCharacters();
     })
   }
   private async delay(ms: number) {

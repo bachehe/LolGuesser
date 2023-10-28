@@ -25,7 +25,13 @@ namespace Infrastructure.Data.Migrations
                     b.Property<double>("Ad")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("Ap")
+                    b.Property<double>("Armor")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("ArmorGain")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("As")
                         .HasColumnType("REAL");
 
                     b.Property<double>("Hp")
@@ -34,9 +40,28 @@ namespace Infrastructure.Data.Migrations
                     b.Property<double>("HpGain")
                         .HasColumnType("REAL");
 
+                    b.Property<double>("MS")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Mana")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("ManaGain")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Mr")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Range")
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 

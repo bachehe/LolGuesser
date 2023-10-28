@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="d-grid gap-2">
-    <button class="btn btn-lg btn-primary" (click)="onButtonClick()" type="button">click</button>
+    <button class="btn btn-lg btn-primary" (click)="getCharacters()" type="button">click</button>
     <h1 class="d-inline ml-1">Which character has more basic
       <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">hp?</p>
       <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">ad?</p>
