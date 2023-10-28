@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿using API.DTO;
+using Core.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Helpers
 {

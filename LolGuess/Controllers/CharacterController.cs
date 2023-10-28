@@ -1,5 +1,6 @@
 ﻿using API.DTO;
 using API.Helpers;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,18 +11,21 @@ namespace API.Controllers
     {
 
         private readonly IGenericRepository<Character> _characterRepository;
+        private readonly IMapper _mapper;
 
-        public CharacterController(IGenericRepository<Character> characterRepository)
+        public CharacterController(IGenericRepository<Character> characterRepository, IMapper mapper)
         {
             _characterRepository = characterRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetCharacters()
         {
             var champions = await _characterRepository.ListAllAsync();
+            var data = _mapper.Map<IReadOnlyList<Character>, IReadOnlyList<CharacterDto>>(champions);
 
-            return Ok(champions);
+            return Ok(data);
         }
         [HttpGet("war")]
         public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetWarCharacters()
@@ -29,14 +33,33 @@ namespace API.Controllers
             var champions = await _characterRepository.ListAllAsync();
 
             var warCharacters = WarChampions.Generate(champions);
-            var randomIndex = new Random().Next(2, 6);
+
+            var fisrtCharacter = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
+            var secondCharacter = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
+
+            var result = MappedList(fisrtCharacter, secondCharacter);
+
+            return result;
+        }
+        private ActionResult<IReadOnlyList<CharacterDto>> MappedList(CharacterDto ch1, CharacterDto ch2)
+        {
+            var war = new List<CharacterDto>() { ch1, ch2 };
+
+            var randomIndex = new Random().Next(3, 14);
 
             return (PropertyEnum)randomIndex switch
             {
-                PropertyEnum.Hp => Ok(warCharacters.Select(x => new { x.Name, x.Hp })),
-                PropertyEnum.Ad => Ok(warCharacters.Select(x => new { x.Name, x.Ad })),
-                PropertyEnum.Ap => Ok(warCharacters.Select(x => new { x.Name, x.Ap })),
-                PropertyEnum.HpGain => Ok(warCharacters.Select(x => new { x.Name, x.HpGain })),
+                PropertyEnum.Hp => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Hp })),
+                PropertyEnum.HpGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.HpGain })),
+                PropertyEnum.Mana => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Mana })),
+                PropertyEnum.ManaGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.ManaGain })),
+                PropertyEnum.Ad => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Ad })),
+                PropertyEnum.As => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.As })),
+                PropertyEnum.Armor => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Armor })),
+                PropertyEnum.ArmorGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.ArmorGain })),
+                PropertyEnum.Mr => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Mr })),
+                PropertyEnum.MS => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.MS })),
+                PropertyEnum.Range => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Range })),
                 _ => BadRequest()
             };
         }

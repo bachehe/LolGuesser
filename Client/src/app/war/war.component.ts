@@ -11,25 +11,24 @@ import { WarService } from './war.service';
 export class WarComponent implements OnInit{
   champions: Character[] = [];
   winner: any;
-
   userWinner: string = '';
   displayedValue: boolean = false;
 
   constructor(private warService: WarService){}
 
   ngOnInit(): void {
-    //this.onButtonClick();
   }
 
-  onButtonClick(): void {
+  getCharacters(): void {
     this.warService.getWarCharacters().subscribe({
       next: response => this.champions = response,
     });
 }
+
   private winnerCharacter(): void {
     this.winner = '';
 
-    const attributesToCompare: (keyof Character)[] = ['hp', 'ap', 'ad', 'hpGain'];
+    const attributesToCompare: (keyof Character)[] = ['hp', 'ms', 'ad', 'hpGain', 'mana' ,'manaGain', 'as', 'armor', 'armorGain', 'mr', 'range'];
 
     for (const attribute of attributesToCompare) {
       if (this.champions[0][attribute] > this.champions[1][attribute]) {
@@ -37,20 +36,15 @@ export class WarComponent implements OnInit{
       } else if (this.champions[0][attribute] < this.champions[1][attribute]) {
         this.winner = this.champions[1].name;
       }
-      // else if(this.champions[0][attribute] === this.champions[1][attribute]){
-      //   this.onWin();
-      // }
+      else if(this.champions[0][attribute] === this.champions[1][attribute]){
+        //tbd
+      }
       if (this.winner) {
+        console.log(this.champions[0].pictureUrl)
         break;
       }
     }
   }
-
-  //on click schema:
-  //choose character
-  //validate result
-  //show hp
-  //select next
   userChoice(side: string): void{
     this.winnerCharacter();
 
@@ -58,7 +52,7 @@ export class WarComponent implements OnInit{
       this.userWinner = this.champions[0].name;
     }
     else if(side ==='right'){
-       this.userWinner = this.champions[1].name;
+      this.userWinner = this.champions[1].name;
     }
 
     this.delay(300).then(any => {
@@ -75,17 +69,16 @@ export class WarComponent implements OnInit{
   }
   private onWin(): void{
     console.log('you win');
-
     this.delay(1500).then(any =>{
       this.displayedValue = false;
-      this.onButtonClick();
+      this.getCharacters();
     })
   }
   private onLost(): void{
     console.log('you lost');
     this.delay(1500).then(any =>{
       this.displayedValue = false;
-      this.onButtonClick();
+      this.getCharacters();
     })
   }
   private async delay(ms: number) {
