@@ -34,10 +34,16 @@ namespace API.Controllers
 
             var warCharacters = WarChampions.Generate(champions);
 
-            var dataUrlFirst = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
-            var dataUrlSecond= _mapper.Map<Character, CharacterDto>(warCharacters[1]);
+            var fisrtCharacter = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
+            var secondCharacter = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
 
-            var war = new List<CharacterDto>() { dataUrlFirst, dataUrlSecond };
+            var result = MappedList(fisrtCharacter, secondCharacter);
+
+            return result;
+        }
+        private ActionResult<IReadOnlyList<CharacterDto>> MappedList(CharacterDto ch1, CharacterDto ch2)
+        {
+            var war = new List<CharacterDto>() { ch1, ch2 };
 
             var randomIndex = new Random().Next(3, 14);
 
