@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\images\Aatrox.jpg">
+    <Content Update="wwwroot\images\Champions\Aatrox.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
