@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Character } from '../shared/models/character';
 import { WarService } from './war.service';
+import { AnimationBuilder, animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-war',
   templateUrl: './war.component.html',
-  styleUrls: ['./war.component.scss']
+  styleUrls: ['./war.component.scss'],
+  animations: [
+    trigger('anim', [
+      state('void', style({ opacity: 0, transform: 'scale(0.8)' })),
+      state('*', style({ opacity: 1, transform: 'scale(1)' })),
+      transition('void => *', [animate('1s')]),
+    ]),
+  ],
 })
 
 export class WarComponent implements OnInit{
@@ -14,7 +22,7 @@ export class WarComponent implements OnInit{
   userWinner: string = '';
   displayedValue: boolean = false;
 
-  constructor(private warService: WarService){}
+  constructor(private warService: WarService, private animationBuilder: AnimationBuilder, private elementRef: ElementRef){}
 
   ngOnInit(): void {
   }
@@ -40,11 +48,11 @@ export class WarComponent implements OnInit{
         //tbd
       }
       if (this.winner) {
-        console.log(this.champions[0].pictureUrl)
         break;
       }
     }
   }
+
   userChoice(side: string): void{
     this.winnerCharacter();
 

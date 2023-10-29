@@ -1,19 +1,18 @@
 <div class="container">
-
   <div class="d-grid gap-2">
     <button class="btn btn-lg btn-primary" (click)="getCharacters()" type="button">click</button>
-    <h1 class="d-inline ml-1">Which character has more basic
+    <h1 class="d-inline ml-1">Which champion has more basic
       <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">hp?</p>
-      <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">ad?</p>
-      <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">ms?</p>
+      <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">attack damage?</p>
+      <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">movement speed?</p>
       <p *ngIf="champions[0].mana !== undefined" class="text-light-emphasis d-inline ml-1">mana?</p>
       <p *ngIf="champions[0].manaGain !== undefined" class="text-light-emphasis d-inline ml-1">mana gain?</p>
-      <p *ngIf="champions[0].as !== undefined" class="text-light-emphasis d-inline ml-1">as?</p>
+      <p *ngIf="champions[0].as !== undefined" class="text-light-emphasis d-inline ml-1">attack speed?</p>
       <p *ngIf="champions[0].armor !== undefined" class="text-light-emphasis d-inline ml-1">armor?</p>
       <p *ngIf="champions[0].armorGain !== undefined" class="text-light-emphasis d-inline ml-1">armor gain?</p>
-      <p *ngIf="champions[0].mr !== undefined" class="text-light-emphasis d-inline ml-1">mr?</p>
+      <p *ngIf="champions[0].mr !== undefined" class="text-light-emphasis d-inline ml-1">magic resists?</p>
       <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">hp?</p>
-      <p *ngIf="champions[0].range !== undefined" class="text-light-emphasis d-inline ml-1">range?</p>
+      <p *ngIf="champions[0].range !== undefined" class="text-light-emphasis d-inline ml-1">attack range?</p>
     </h1>
   </div>
 </div>
@@ -21,10 +20,11 @@
 <div class="container" style="margin-top: 100px;">
   <div class="row justify-content-center">
     <div class="col-md-5 text-center">
-      <img src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid">
-      <h1>{{ champions[0].name }}</h1>
-      <button class="btn btn-lg" (click)="userChoice('left')" type="button">click</button>
-      <div *ngIf="displayedValue">
+      <div class="img-h1">
+        <img src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid" [@anim]>
+        <button class="btn" (click)="userChoice('left')" type="button"><h2>{{ champions[0].name }}</h2></button>
+      </div>
+      <div *ngIf="displayedValue" style="margin-top: 50px;"  [@anim]>
         <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].hp}}</p>
         <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].ad}}</p>
         <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].ms}}</p>
@@ -37,8 +37,8 @@
         <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].hpGain}}</p>
         <p *ngIf="champions[0].range !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].range}}</p>
       </div>
-
     </div>
+
     <div class="col-md-2 text-center">
       <div class="vs-line">
         <div class="line"></div>
@@ -46,11 +46,13 @@
         <div class="line"></div>
       </div>
     </div>
+
     <div class="col-md-5 text-center">
-      <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid">
-      <h1>{{ champions[1].name }}</h1>
-      <button class="btn btn-lg" (click)="userChoice('right')" type="button">click</button>
-      <div *ngIf="displayedValue">
+      <div class="img-h1" style="margin-left: 8%;">
+        <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid" [@anim]>
+        <button class="btn" (click)="userChoice('right')" type="button"><h2>{{ champions[1].name }}</h2></button>
+      </div>
+      <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
         <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].hp}}</p>
         <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].ad}}</p>
         <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].ms}}</p>
