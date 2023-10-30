@@ -39,3 +39,7 @@ p{
     text-align: center;
     color: white;
 }
+.correct-guess {
+  filter: brightness(1.5) saturate(1.5) hue-rotate(120deg);
+  transition: filter 0.5s ease;
+}
