@@ -21,6 +21,7 @@ export class WarComponent implements OnInit{
   winner: any;
   userWinner: string = '';
   displayedValue: boolean = false;
+  correctGuess: boolean= false;
 
   isEqual: boolean = false;
 
@@ -30,6 +31,7 @@ export class WarComponent implements OnInit{
   constructor(private warService: WarService, private animationBuilder: AnimationBuilder, private elementRef: ElementRef){}
 
   ngOnInit(): void {
+    this.getCharacters();
   }
 
   getCharacters(): void {
@@ -40,9 +42,7 @@ export class WarComponent implements OnInit{
 
   private winnerCharacter(): void {
     this.winner = '';
-
     const attributesToCompare: (keyof Character)[] = ['hp', 'ms', 'ad', 'hpGain', 'mana' ,'manaGain', 'as', 'armor', 'armorGain', 'mr', 'range'];
-
     for (const attribute of attributesToCompare) {
       if(+this.champions[0][attribute] > 0){
         if(this.champions[0][attribute] === this.champions[1][attribute]){
@@ -61,7 +61,7 @@ export class WarComponent implements OnInit{
     }
   }
 
-  userChoice(side: string): void{
+  userChoice(index: number, side: string): void{
     this.winnerCharacter();
     if(side === 'left'){
       this.userWinner = this.champions[0].name;
@@ -72,9 +72,9 @@ export class WarComponent implements OnInit{
 
     this.delay(300).then(any => {
       this.displayedValue = true;
+      this.correctGuess = true;
       this.delay(1500).then(any =>{
         if(this.isEqual === true){
-          this.displayedValue = true;
           this.onWin();
           return;
         }
@@ -91,6 +91,7 @@ export class WarComponent implements OnInit{
     this.currentScore++;
     console.log('you win');
     this.delay(1500).then(any =>{
+      this.correctGuess = false;
       this.displayedValue = false;
       this.isEqual = false;
       this.getCharacters();
