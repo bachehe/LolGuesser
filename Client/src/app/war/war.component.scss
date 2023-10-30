@@ -13,6 +13,7 @@ h2{
 p{
  font-size: 38px;
 }
+
 .vs-line {
   display: flex;
   align-items: center;
@@ -39,7 +40,38 @@ p{
     text-align: center;
     color: white;
 }
-.correct-guess {
-  filter: brightness(1.5) saturate(1.5) hue-rotate(120deg);
-  transition: filter 0.5s ease;
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+}
+.circlex {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s;
 }

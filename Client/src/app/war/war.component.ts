@@ -13,17 +13,25 @@ import { AnimationBuilder, animate, state, style, transition, trigger } from '@a
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
       transition('void => *', [animate('.5s')]),
     ]),
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1s', style({ opacity: 1 })),
+      ]),
+    ]),
   ],
 })
 
 export class WarComponent implements OnInit{
+  fade: boolean = false;
   champions: Character[] = [];
   winner: any;
   userWinner: string = '';
+  guessStatus: number[] = [1,2,3]
   displayedValue: boolean = false;
-  correctGuess: boolean= false;
-
+  win: boolean = false;
   isEqual: boolean = false;
+
 
   currentScore: number = 0;
   highScore: number = 0;
@@ -72,28 +80,28 @@ export class WarComponent implements OnInit{
 
     this.delay(300).then(any => {
       this.displayedValue = true;
-      this.correctGuess = true;
       this.delay(1500).then(any =>{
         if(this.isEqual === true){
+          this.win = true;
           this.onWin();
           return;
         }
         if(this.userWinner === this.winner){
+          this.win = true;
           this.onWin();
           }
-          else{
-            this.onLost();
-          }
+        else{
+          this.onLost();
+        }
         })
       })
   }
   private onWin(): void{
     this.currentScore++;
-    console.log('you win');
     this.delay(1500).then(any =>{
-      this.correctGuess = false;
       this.displayedValue = false;
       this.isEqual = false;
+      this.win = false;
       this.getCharacters();
     })
   }
