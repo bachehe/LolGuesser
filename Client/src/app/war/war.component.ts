@@ -11,7 +11,7 @@ import { AnimationBuilder, animate, state, style, transition, trigger } from '@a
     trigger('anim', [
       state('void', style({ opacity: 0, transform: 'scale(0.8)' })),
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
-      transition('void => *', [animate('1s')]),
+      transition('void => *', [animate('.5s')]),
     ]),
   ],
 })
@@ -22,6 +22,11 @@ export class WarComponent implements OnInit{
   userWinner: string = '';
   displayedValue: boolean = false;
 
+  isEqual: boolean = false;
+
+  currentScore: number = 0;
+  highScore: number = 0;
+
   constructor(private warService: WarService, private animationBuilder: AnimationBuilder, private elementRef: ElementRef){}
 
   ngOnInit(): void {
@@ -31,7 +36,7 @@ export class WarComponent implements OnInit{
     this.warService.getWarCharacters().subscribe({
       next: response => this.champions = response,
     });
-}
+  }
 
   private winnerCharacter(): void {
     this.winner = '';
@@ -39,13 +44,16 @@ export class WarComponent implements OnInit{
     const attributesToCompare: (keyof Character)[] = ['hp', 'ms', 'ad', 'hpGain', 'mana' ,'manaGain', 'as', 'armor', 'armorGain', 'mr', 'range'];
 
     for (const attribute of attributesToCompare) {
+      if(+this.champions[0][attribute] > 0){
+        if(this.champions[0][attribute] === this.champions[1][attribute]){
+          this.isEqual = true;
+        }
+      }
+
       if (this.champions[0][attribute] > this.champions[1][attribute]) {
         this.winner = this.champions[0].name;
       } else if (this.champions[0][attribute] < this.champions[1][attribute]) {
         this.winner = this.champions[1].name;
-      }
-      else if(this.champions[0][attribute] === this.champions[1][attribute]){
-        //tbd
       }
       if (this.winner) {
         break;
@@ -55,7 +63,6 @@ export class WarComponent implements OnInit{
 
   userChoice(side: string): void{
     this.winnerCharacter();
-
     if(side === 'left'){
       this.userWinner = this.champions[0].name;
     }
@@ -66,8 +73,13 @@ export class WarComponent implements OnInit{
     this.delay(300).then(any => {
       this.displayedValue = true;
       this.delay(1500).then(any =>{
+        if(this.isEqual === true){
+          this.displayedValue = true;
+          this.onWin();
+          return;
+        }
         if(this.userWinner === this.winner){
-            this.onWin();
+          this.onWin();
           }
           else{
             this.onLost();
@@ -76,15 +88,25 @@ export class WarComponent implements OnInit{
       })
   }
   private onWin(): void{
+    this.currentScore++;
     console.log('you win');
     this.delay(1500).then(any =>{
       this.displayedValue = false;
+      this.isEqual = false;
       this.getCharacters();
     })
   }
   private onLost(): void{
-    console.log('you lost');
+    if(this.currentScore > this.highScore){
+      this.highScore = this.currentScore;
+      localStorage.setItem('session', JSON.stringify(this.highScore));
+    }
+
+    let data = localStorage.getItem('session');
+    alert(data)
+    console.log('you lost')
     this.delay(1500).then(any =>{
+      this.currentScore = 0;
       this.displayedValue = false;
       this.getCharacters();
     })

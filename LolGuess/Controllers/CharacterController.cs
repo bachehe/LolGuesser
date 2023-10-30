@@ -43,6 +43,9 @@ namespace API.Controllers
         }
         private ActionResult<IReadOnlyList<CharacterDto>> MappedList(CharacterDto ch1, CharacterDto ch2)
         {
+            if (ch1 == null || ch2 == null)
+                return BadRequest();
+
             var war = new List<CharacterDto>() { ch1, ch2 };
 
             var randomIndex = new Random().Next(3, 14);
