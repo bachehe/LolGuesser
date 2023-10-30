@@ -23,15 +23,14 @@ import { AnimationBuilder, animate, state, style, transition, trigger } from '@a
 })
 
 export class WarComponent implements OnInit{
-  fade: boolean = false;
   champions: Character[] = [];
   winner: any;
   userWinner: string = '';
-  guessStatus: number[] = [1,2,3]
+
   displayedValue: boolean = false;
+  lost: boolean = false;
   win: boolean = false;
   isEqual: boolean = false;
-
 
   currentScore: number = 0;
   highScore: number = 0;
@@ -69,7 +68,7 @@ export class WarComponent implements OnInit{
     }
   }
 
-  userChoice(index: number, side: string): void{
+  userChoice(side: string): void{
     this.winnerCharacter();
     if(side === 'left'){
       this.userWinner = this.champions[0].name;
@@ -91,6 +90,7 @@ export class WarComponent implements OnInit{
           this.onWin();
           }
         else{
+          this.lost = true;
           this.onLost();
         }
         })
@@ -110,15 +110,16 @@ export class WarComponent implements OnInit{
       this.highScore = this.currentScore;
       localStorage.setItem('session', JSON.stringify(this.highScore));
     }
-
-    let data = localStorage.getItem('session');
-    alert(data)
-    console.log('you lost')
-    this.delay(1500).then(any =>{
-      this.currentScore = 0;
-      this.displayedValue = false;
-      this.getCharacters();
-    })
+    //let data = localStorage.getItem('session');
+    // this.delay(1500).then(any =>{
+    //   this.tryAgain();
+    // })
+  }
+   tryAgain(): void{
+    this.currentScore = 0;
+    this.displayedValue = false;
+    this.lost = false;
+    this.getCharacters();
   }
   private async delay(ms: number) {
     await new Promise<void>(resolve => setTimeout(()=> resolve(), ms));

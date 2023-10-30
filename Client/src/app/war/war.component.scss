@@ -13,7 +13,30 @@ h2{
 p{
  font-size: 38px;
 }
+.score{
+  position: absolute;
+  text-align: center;
+  justify-content: center;
+  top:70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.lost-btn{
+  display: block;
+  margin: 10px auto;
+}
+.lost-b{
+  text-align: center;
 
+}
+.lost-h{
+  margin:150px;
+}
+.lost{
+  position: relative;
+  text-align: center;
+  color: white;
+}
 .vs-line {
   display: flex;
   align-items: center;
@@ -62,16 +85,4 @@ p{
   align-items: center;
   font-size: 24px;
   color: white;
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.5s;
 }
