@@ -13,6 +13,12 @@ import { AnimationBuilder, animate, state, style, transition, trigger } from '@a
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
       transition('void => *', [animate('.5s')]),
     ]),
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1s', style({ opacity: 1 })),
+      ]),
+    ]),
   ],
 })
 
@@ -20,9 +26,10 @@ export class WarComponent implements OnInit{
   champions: Character[] = [];
   winner: any;
   userWinner: string = '';
-  displayedValue: boolean = false;
-  correctGuess: boolean= false;
 
+  displayedValue: boolean = false;
+  lost: boolean = false;
+  win: boolean = false;
   isEqual: boolean = false;
 
   currentScore: number = 0;
@@ -61,7 +68,7 @@ export class WarComponent implements OnInit{
     }
   }
 
-  userChoice(index: number, side: string): void{
+  userChoice(side: string): void{
     this.winnerCharacter();
     if(side === 'left'){
       this.userWinner = this.champions[0].name;
@@ -72,28 +79,29 @@ export class WarComponent implements OnInit{
 
     this.delay(300).then(any => {
       this.displayedValue = true;
-      this.correctGuess = true;
       this.delay(1500).then(any =>{
         if(this.isEqual === true){
+          this.win = true;
           this.onWin();
           return;
         }
         if(this.userWinner === this.winner){
+          this.win = true;
           this.onWin();
           }
-          else{
-            this.onLost();
-          }
+        else{
+          this.lost = true;
+          this.onLost();
+        }
         })
       })
   }
   private onWin(): void{
     this.currentScore++;
-    console.log('you win');
     this.delay(1500).then(any =>{
-      this.correctGuess = false;
       this.displayedValue = false;
       this.isEqual = false;
+      this.win = false;
       this.getCharacters();
     })
   }
@@ -102,15 +110,16 @@ export class WarComponent implements OnInit{
       this.highScore = this.currentScore;
       localStorage.setItem('session', JSON.stringify(this.highScore));
     }
-
-    let data = localStorage.getItem('session');
-    alert(data)
-    console.log('you lost')
-    this.delay(1500).then(any =>{
-      this.currentScore = 0;
-      this.displayedValue = false;
-      this.getCharacters();
-    })
+    //let data = localStorage.getItem('session');
+    // this.delay(1500).then(any =>{
+    //   this.tryAgain();
+    // })
+  }
+   tryAgain(): void{
+    this.currentScore = 0;
+    this.displayedValue = false;
+    this.lost = false;
+    this.getCharacters();
   }
   private async delay(ms: number) {
     await new Promise<void>(resolve => setTimeout(()=> resolve(), ms));

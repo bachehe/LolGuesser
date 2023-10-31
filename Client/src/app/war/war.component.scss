@@ -13,6 +13,30 @@ h2{
 p{
  font-size: 38px;
 }
+.score{
+  position: absolute;
+  text-align: center;
+  justify-content: center;
+  top:70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.lost-btn{
+  display: block;
+  margin: 10px auto;
+}
+.lost-b{
+  text-align: center;
+
+}
+.lost-h{
+  margin:150px;
+}
+.lost{
+  position: relative;
+  text-align: center;
+  color: white;
+}
 .vs-line {
   display: flex;
   align-items: center;
@@ -39,7 +63,26 @@ p{
     text-align: center;
     color: white;
 }
-.correct-guess {
-  filter: brightness(1.5) saturate(1.5) hue-rotate(120deg);
-  transition: filter 0.5s ease;
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+}
+.circlex {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
 }

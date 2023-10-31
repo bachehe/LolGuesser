@@ -18,7 +18,8 @@ import { WarModule } from './war/war.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    WarModule
+    WarModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
