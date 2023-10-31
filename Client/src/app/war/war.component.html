@@ -22,8 +22,9 @@
     <div class="row justify-content-center">
       <div class="col-md-5 text-center">
         <div class="img-h1" *ngIf="champions && champions[0]">
-          <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid img-p" [@anim]>
-          <button class="btn" (click)="userChoice('left')" type="button"><h2>{{ champions[0].name }}</h2></button>
+          <button class="btn" (click)="userChoice('left')" type="button">
+            <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid img-p" [@anim]>
+          <h2>{{ champions[0].name }}</h2></button>
         </div>
         <div *ngIf="displayedValue" style="margin-top: 50px;"  [@anim]>
           <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].hp}}</p>
@@ -43,8 +44,8 @@
       <div class="col-md-2 text-center" *ngIf="champions[0]">
         <div class="vs-line">
           <div [@anim] style="margin-left: 25%;" *ngIf="win" class="circle">✓</div>
-          <div [@anim] style="margin-left: 25%;" *ngIf="lost" class="circlex">X</div>
-          <ng-container [@anim] *ngIf="!win">
+          <div [@anim] style="margin-left: 25%;" *ngIf="cricleX" class="circlex">X</div>
+          <ng-container *ngIf="!win && !cricleX">
             <div *ngIf="!lost" class="line"></div>
             <div *ngIf="!lost" class="vs">vs</div>
             <div *ngIf="!lost" class="line"></div>
@@ -53,14 +54,14 @@
         </div>
       </div>
       <div *ngIf="currentScore" class="score">
-        <!-- <p  class="text-light-emphasis  d-inline ml-1" style="font-size: 28px;" >Score: </p> -->
         <p [@anim]  class="d-inline ml-1 text-light-emphasis" style="font-size: 32px;">{{currentScore}}</p>
       </div>
 
       <div class="col-md-5 text-center" *ngIf="champions && champions[1]">
-        <div class="img-h1" style="margin-left: 8%;">
+        <div class="img-h1" style="margin-left: 5%;">
+          <button class="btn" (click)="userChoice('right')" type="button">
             <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid img-p"[@anim]>
-            <button class="btn" (click)="userChoice('right')" type="button"><h2>{{ champions[1].name }}</h2></button>
+            <h2>{{ champions[1].name }}</h2></button>
           </div>
         <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
           <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].hp}}</p>
@@ -80,7 +81,7 @@
   </div>
 </div>
 
-<div class="container lost" *ngIf="lost">
+<div class="container lost" *ngIf="lost" [@anim]>
   <div class="card border-primary mb-3 lost" style="margin-left: 34%; max-width:25rem; height: 25rem; background-color: rgb(72, 22, 138);">
     <div class="card-header">{{lostText}}</div>
     <div class="card-body mb-lg-5">

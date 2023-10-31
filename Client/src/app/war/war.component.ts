@@ -29,6 +29,7 @@ export class WarComponent implements OnInit{
   userWinner: string = '';
 
   displayedValue: boolean = false;
+  cricleX: boolean = false;
   lost: boolean = false;
   win: boolean = false;
   isEqual: boolean = false;
@@ -82,7 +83,6 @@ export class WarComponent implements OnInit{
       this.displayedValue = true;
       this.delay(1500).then(any =>{
         if(this.isEqual === true){
-          this.win = true;
           this.onWin();
           return;
         }
@@ -106,14 +106,18 @@ export class WarComponent implements OnInit{
     })
   }
   private onLost(): void{
-    this.lost = true;
-    this.LostTextPicker();
-    if(this.currentScore > this.highScore){
-      this.highScore = this.currentScore;
-      localStorage.setItem('session', JSON.stringify(this.highScore));
-    }
+    this.cricleX = true;
+    this.delay(1500).then(any => {
+      this.lost = true;
+      this.LostTextPicker();
+      if(this.currentScore > this.highScore){
+        this.highScore = this.currentScore;
+        localStorage.setItem('session', JSON.stringify(this.highScore));
+      }
+    })
   }
    tryAgain(): void{
+    this.cricleX = false;
     this.currentScore = 0;
     this.displayedValue = false;
     this.lost = false;
