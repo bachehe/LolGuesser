@@ -48,6 +48,7 @@ namespace API.Controllers
 
             var war = new List<CharacterDto>() { ch1, ch2 };
 
+            //TODO safety
             var randomIndex = new Random().Next(3, 14);
 
             return (PropertyEnum)randomIndex switch
