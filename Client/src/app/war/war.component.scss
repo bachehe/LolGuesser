@@ -2,7 +2,15 @@ h1{
   color: cyan;
   text-align: center;
 }
+h2:hover{
+  color: white;
+}
 h2{
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  color: cyan;
   position: absolute;
   text-align: center;
   justify-content: center;
@@ -12,6 +20,12 @@ h2{
 }
 p{
  font-size: 38px;
+}
+.img-p{
+  box-shadow: 15px 15px 10px #111010;
+  -moz-box-shadow: 15px 15px 10px #111010;
+  -webkit-box-shadow: 15px 15px 10px #111010;
+  -khtml-box-shadow: 15px 15px 10px #111010;
 }
 .score{
   position: absolute;
@@ -27,12 +41,12 @@ p{
 }
 .lost-b{
   text-align: center;
-
 }
 .lost-h{
   margin:150px;
 }
 .lost{
+  margin-top: 150px;
   position: relative;
   text-align: center;
   color: white;
