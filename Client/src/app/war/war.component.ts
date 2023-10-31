@@ -25,6 +25,7 @@ import { AnimationBuilder, animate, state, style, transition, trigger } from '@a
 export class WarComponent implements OnInit{
   champions: Character[] = [];
   winner: any;
+  lostText: string = '';
   userWinner: string = '';
 
   displayedValue: boolean = false;
@@ -86,17 +87,16 @@ export class WarComponent implements OnInit{
           return;
         }
         if(this.userWinner === this.winner){
-          this.win = true;
           this.onWin();
           }
         else{
-          this.lost = true;
           this.onLost();
         }
         })
       })
   }
   private onWin(): void{
+    this.win = true;
     this.currentScore++;
     this.delay(1500).then(any =>{
       this.displayedValue = false;
@@ -106,14 +106,12 @@ export class WarComponent implements OnInit{
     })
   }
   private onLost(): void{
+    this.lost = true;
+    this.LostTextPicker();
     if(this.currentScore > this.highScore){
       this.highScore = this.currentScore;
       localStorage.setItem('session', JSON.stringify(this.highScore));
     }
-    //let data = localStorage.getItem('session');
-    // this.delay(1500).then(any =>{
-    //   this.tryAgain();
-    // })
   }
    tryAgain(): void{
     this.currentScore = 0;
@@ -123,5 +121,25 @@ export class WarComponent implements OnInit{
   }
   private async delay(ms: number) {
     await new Promise<void>(resolve => setTimeout(()=> resolve(), ms));
+  }
+
+  private LostTextPicker(): void{
+    switch (true) {
+      case this.currentScore === 0:
+        this.lostText = "I could not be more disappointed";
+        break;
+      case this.currentScore > 0 && this.currentScore <= 2:
+        this.lostText = "You have failed me. Your mom too.";
+        break;
+      case this.currentScore > 2 && this.currentScore <= 4:
+        this.lostText = "Its... okay....";
+        break;
+      case this.currentScore > 4 && this.currentScore <= 6:
+        this.lostText = "WOW";
+        break;
+      default:
+        this.lostText = "how?????????";
+        break;
+    }
   }
 }

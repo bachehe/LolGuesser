@@ -6,7 +6,7 @@
         <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">hp?</p>
         <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">attack damage?</p>
         <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">movement speed?</p>
-        <p *ngIf="champions[0].mana !== undefined" class="text-light-emphasis d-inline ml-1">mana/energy?</p>
+        <p *ngIf="champions[0].mana !== undefined" class="text-light-emphasis d-inline ml-1">mana attribute?</p>
         <p *ngIf="champions[0].manaGain !== undefined" class="text-light-emphasis d-inline ml-1">mana gain?</p>
         <p *ngIf="champions[0].as !== undefined" class="text-light-emphasis d-inline ml-1">attack speed?</p>
         <p *ngIf="champions[0].armor !== undefined" class="text-light-emphasis d-inline ml-1">armor?</p>
@@ -22,7 +22,7 @@
     <div class="row justify-content-center">
       <div class="col-md-5 text-center">
         <div class="img-h1" *ngIf="champions && champions[0]">
-          <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid" [@anim]>
+          <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid img-p" [@anim]>
           <button class="btn" (click)="userChoice('left')" type="button"><h2>{{ champions[0].name }}</h2></button>
         </div>
         <div *ngIf="displayedValue" style="margin-top: 50px;"  [@anim]>
@@ -53,13 +53,13 @@
         </div>
       </div>
       <div *ngIf="currentScore" class="score">
-        <p  class="text-light-emphasis  d-inline ml-1" style="font-size: 28px;" >Score: </p>
+        <!-- <p  class="text-light-emphasis  d-inline ml-1" style="font-size: 28px;" >Score: </p> -->
         <p [@anim]  class="d-inline ml-1 text-light-emphasis" style="font-size: 32px;">{{currentScore}}</p>
       </div>
 
       <div class="col-md-5 text-center" *ngIf="champions && champions[1]">
         <div class="img-h1" style="margin-left: 8%;">
-            <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid"[@anim]>
+            <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid img-p"[@anim]>
             <button class="btn" (click)="userChoice('right')" type="button"><h2>{{ champions[1].name }}</h2></button>
           </div>
         <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
@@ -81,13 +81,15 @@
 </div>
 
 <div class="container lost" *ngIf="lost">
-  <h1 >You have failed:(</h1>
-    <div class="lost-h">
-      <h3 >Score : {{currentScore}}</h3>
-      <h3 >Personal Best : {{highScore}}</h3>
+  <div class="card border-primary mb-3 lost" style="margin-left: 34%; max-width:25rem; height: 25rem; background-color: rgb(72, 22, 138);">
+    <div class="card-header">{{lostText}}</div>
+    <div class="card-body mb-lg-5">
+      <h4 class="card-title mb-5" style="margin-top:50px;">Personal Best : {{highScore}}</h4>
+      <p class="card-text mb-auto">Score : {{currentScore}}</p>
     </div>
-    <div class="lost-b">
-      <button type="button" class="btn btn-lg btn-outline-secondary lost-btn">Home</button>
-      <button type="button" (click)="tryAgain()" class="btn btn-lg btn-outline-secondary lost-btn">Try Again</button>
-    </div>
+  </div>
+  <div class="lost-b">
+    <button type="button" class="btn btn-lg btn-outline-secondary lost-btn" style="width: 150px;">Home</button>
+    <button type="button" (click)="tryAgain()" class="btn btn-lg btn-outline-secondary lost-btn" style="width: 150px;">Try Again</button>
+  </div>
 </div>
