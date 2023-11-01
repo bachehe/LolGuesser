@@ -1,37 +1,73 @@
-h1{
+h1 {
   font-size: 48px;
   margin-top: 100px;
   color: rgb(207, 199, 207);
   text-align: center;
   justify-content: center;
+
+  @media (max-width: 768px) { // breakpoint for tablets and smaller devices
+    font-size: 32px;
+    margin-top: 60px;
+  }
 }
-p{
+
+p {
   font-size: 26px;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 }
-.contener{
+
+.contener {
   margin-top: 150px;
+
+  @media (max-width: 768px) {
+    margin-top: 75px;
+  }
 }
-.btn-parent{
-  margin-left:38%;
+
+.btn-parent {
+  margin-left: 38%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    text-align: center; // Center the button on smaller screens
+  }
 }
-.home-btn{
+
+.home-btn {
   width: 250px;
   height: 100px;
   font-size: 26px;
   margin: 25px;
   padding: 15px;
-  display:block;
+  display: block;
   text-align: center;
+
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 80px;
+    font-size: 20px;
+    margin: 15px auto; // Center the button and reduce the margin on smaller screens
+  }
+
+  &:hover {
+    background-color: rgb(74, 37, 122);
+    color: white;
+  }
 }
-.text-block{
+
+.text-block {
   margin-top: 100px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    margin-top: 50px;
+  }
 }
-.answer{
+
+.answer {
   color: cyan;
-  margin:15px;
-}
-.home-btn:hover{
-background-color: rgb(74, 37, 122);
-color:white;
+  margin: 15px;
 }

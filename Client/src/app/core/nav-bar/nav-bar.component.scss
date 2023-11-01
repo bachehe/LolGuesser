@@ -37,3 +37,29 @@ nav.fill ul li a:after {
 nav.stroke ul li a:hover:after {
   width: 100%;
 }
+.nav-item{
+  justify-content: center;
+}
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .navbar-collapse {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .navbar-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
