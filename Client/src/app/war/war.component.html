@@ -1,43 +1,27 @@
-<div *ngIf="!lost">
-  <div class="container">
+<div *ngIf="!lost" [@fadeOut]="fadeState">
+  <div class="container" >
     <div class="d-grid gap-2">
-
-       <h1 *ngIf="champions &&  champions[0]" class="d-inline ml-1">Which champion has more basic
-        <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">hp?</p>
-        <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">attack damage?</p>
-        <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">movement speed?</p>
-        <p *ngIf="champions[0].mana !== undefined" class="text-light-emphasis d-inline ml-1">mana attribute?</p>
-        <p *ngIf="champions[0].manaGain !== undefined" class="text-light-emphasis d-inline ml-1">mana gain?</p>
-        <p *ngIf="champions[0].as !== undefined" class="text-light-emphasis d-inline ml-1">attack speed?</p>
-        <p *ngIf="champions[0].armor !== undefined" class="text-light-emphasis d-inline ml-1">armor?</p>
-        <p *ngIf="champions[0].armorGain !== undefined" class="text-light-emphasis d-inline ml-1">armor gain?</p>
-        <p *ngIf="champions[0].mr !== undefined" class="text-light-emphasis d-inline ml-1">magic resists?</p>
-        <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">hp gain?</p>
-        <p *ngIf="champions[0].range !== undefined" class="text-light-emphasis d-inline ml-1">attack range?</p>
-      </h1>
+      <ng-container *ngIf="champions && champions[0]">
+        <h1 class="d-inline ml-1">Which champion has more basic
+        <ng-container *ngFor="let attribute of championAttributes">
+          <p *ngIf="getValue(champions[0], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ attribute.label }}</p>
+        </ng-container></h1>
+      </ng-container>
     </div>
   </div>
 
   <div class="container" style="margin-top: 100px;">
     <div class="row justify-content-center">
       <div class="col-md-5 text-center">
-        <div class="img-h1" *ngIf="champions && champions[0]">
-          <button class="btn" (click)="userChoice('left')" type="button">
-            <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid img-p" [@anim]>
+        <div class="img-h1" *ngIf="champions && champions[0]" >
+          <button [disabled]="loading" class="btn" (click)="userChoice('left')" type="button">
+            <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid img-p"  [@animImg]="animateState">
           <h2>{{ champions[0].name }}</h2></button>
         </div>
-        <div *ngIf="displayedValue" style="margin-top: 50px;"  [@anim]>
-          <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].hp}}</p>
-          <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].ad}}</p>
-          <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].ms}}</p>
-          <p *ngIf="champions[0].mana !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].mana}}</p>
-          <p *ngIf="champions[0].manaGain !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].manaGain}}</p>
-          <p *ngIf="champions[0].as !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].as}}</p>
-          <p *ngIf="champions[0].armor !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].armor}}</p>
-          <p *ngIf="champions[0].armorGain !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].armorGain}}</p>
-          <p *ngIf="champions[0].mr !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].mr}}</p>
-          <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].hpGain}}</p>
-          <p *ngIf="champions[0].range !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[0].range}}</p>
+        <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
+          <ng-container *ngFor="let attribute of championAttributes">
+            <p *ngIf="getValue(champions[0], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ getValue(champions[0], attribute.key) }}</p>
+          </ng-container>
         </div>
       </div>
 
@@ -59,23 +43,15 @@
 
       <div class="col-md-5 text-center" *ngIf="champions && champions[1]">
         <div class="img-h1" style="margin-left: 5%;">
-          <button class="btn" (click)="userChoice('right')" type="button">
-            <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid img-p"[@anim]>
+          <button [disabled]="loading" class="btn" (click)="userChoice('right')" type="button">
+            <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid img-p"  [@animImg]="animateState">
             <h2>{{ champions[1].name }}</h2></button>
           </div>
-        <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
-          <p *ngIf="champions[0].hp !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].hp}}</p>
-          <p *ngIf="champions[0].ad !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].ad}}</p>
-          <p *ngIf="champions[0].ms !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].ms}}</p>
-          <p *ngIf="champions[0].mana !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].mana}}</p>
-          <p *ngIf="champions[0].manaGain !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].manaGain}}</p>
-          <p *ngIf="champions[0].as !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].as}}</p>
-          <p *ngIf="champions[0].armor !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].armor}}</p>
-          <p *ngIf="champions[0].armorGain !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].armorGain}}</p>
-          <p *ngIf="champions[0].mr !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].mr}}</p>
-          <p *ngIf="champions[0].hpGain !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].hpGain}}</p>
-          <p *ngIf="champions[0].range !== undefined" class="text-light-emphasis d-inline ml-1">{{champions[1].range}}</p>
-        </div>
+          <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
+            <ng-container *ngFor="let attribute of championAttributes">
+              <p *ngIf="getValue(champions[1], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ getValue(champions[1], attribute.key) }}</p>
+            </ng-container>
+          </div>
       </div>
     </div>
   </div>
