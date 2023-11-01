@@ -6,9 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { WarModule } from './war/war.module';
 import { HomeModule } from './home/home.module';
 import { DataModule } from './data/data.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,9 +20,9 @@ import { DataModule } from './data/data.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    WarModule,
     DataModule,
-    HomeModule
+    HomeModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

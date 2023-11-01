@@ -1,28 +1,14 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Character } from '../shared/models/character';
 import { WarService } from './war.service';
-import { AnimationBuilder, animate, state, style, transition, trigger } from '@angular/animations';
+import { basicAnimation, fadeAnimation, fadeOutAnimation, imageAnimation } from '../shared/animations';
 
 @Component({
   selector: 'app-war',
   templateUrl: './war.component.html',
   styleUrls: ['./war.component.scss'],
   animations: [
-    trigger('anim', [
-      state('void', style({ opacity: 0, transform: 'scale(0.8)' })),
-      state('*', style({ opacity: 1, transform: 'scale(1)' })),
-      transition('void => *', [animate('.5s')]),
-    ]),
-    trigger('animImg', [
-      state('void, reset', style({ opacity: 0, transform: 'scale(0.8)' })),
-      state('enter', style({ opacity: 1, transform: 'scale(1)' })),
-      transition('* => enter', [animate('.5s')]),
-    ]),
-    trigger('fadeOut', [
-      state('visible', style({ opacity: 1 })),
-      state('invisible', style({ opacity: 0 })),
-      transition('visible => invisible', [animate('0.5s')])
-    ]),
+    fadeOutAnimation, imageAnimation, basicAnimation, fadeAnimation
   ],
 })
 
@@ -186,10 +172,10 @@ export class WarComponent implements OnInit{
         this.lostText = "I could not be more disappointed";
         break;
       case this.currentScore > 0 && this.currentScore <= 2:
-        this.lostText = "You have failed me. Your mom too.";
+        this.lostText = "You have failed me.";
         break;
       case this.currentScore > 2 && this.currentScore <= 4:
-        this.lostText = "Its... okay....";
+        this.lostText = "OOPSIE WOOPSIE";
         break;
       case this.currentScore > 4 && this.currentScore <= 6:
         this.lostText = "WOW";

@@ -1,3 +1,11 @@
+.table-container {
+  width: 100%;
+  @media (max-width: 768px) {
+    overflow-x: auto;
+  }
+
+}
+
 table {
   margin: 15px;
   text-align: center;
@@ -22,11 +30,18 @@ th {
   background-color: #e914cc79;
   color: white;
 }
-h1{
+
+h1 {
   font-size: 42px;
   margin-top: 50px;
   margin-bottom: 15px;
   color: rgb(207, 199, 207);
   text-align: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
 }

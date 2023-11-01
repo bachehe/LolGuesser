@@ -19,7 +19,11 @@ h2{
   transform: translate(-50%, -50%);
 }
 p{
- font-size: 38px;
+  font-size: 38px;
+  @media (max-width: 768px) {
+    font-size: 26px;
+  }
+
 }
 .img-p{
   box-shadow: 15px 15px 10px #111010;
@@ -37,10 +41,21 @@ p{
   top:70%;
   left: 50%;
   transform: translate(-50%, -50%);
+  @media (max-width: 768px) {
+    top:30%;
+    font-size:12px;
+  }
 }
 .lost-btn{
   display: block;
   margin: 10px auto;
+  width: 400px;
+  height: 75px;
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 50px;
+  }
+
 }
 .lost-btn:hover{
   background-color: rgb(74, 37, 122);
@@ -48,22 +63,50 @@ p{
 }
 .lost-b{
   text-align: center;
+  margin-top:50px;
+  @media (max-width: 768px) {
+    margin-top:0px;
+    width:15rem;
+  }
+
 }
 .lost-h{
   margin:150px;
 }
+.card-header{
+  font-size: 32px;
+  @media (max-width: 768px) {
+    font-size: 24px;
+
+  }
+}
+.card-title{
+  margin-top:70px;
+  @media (max-width: 768px) {
+    margin-top:10px;
+  }
+}
 .lost{
+  width: 25rem;
   margin-top: 150px;
   position: relative;
   text-align: center;
   color: white;
+  @media (max-width: 768px) {
+    width:15rem;
+    margin-top:0px;
+  }
 }
+
 .vs-line {
   display: flex;
   align-items: center;
   margin-top: 110%;
+  @media (max-width: 768px) {
+    opacity: 0;
+    margin-top:0px;
+ }
 }
-
 .line {
   flex-grow: 1;
   height: 2px;
@@ -84,9 +127,21 @@ p{
     position: relative;
     text-align: center;
     color: white;
+    @media (max-width: 768px) {
+      scale:0.8;
+      margin-bottom:15px;
+      margin-top: 0px;
+      margin:0px;
+    }
 }
 .img-h1:hover{
   transform: scale(1.05);
+}
+.score-height{
+  margin-top:70px;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 }
 
 .circle {
@@ -110,4 +165,10 @@ p{
   align-items: center;
   font-size: 24px;
   color: white;
+}
+.container{
+  margin-top: 100px;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 }
