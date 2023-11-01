@@ -20,7 +20,6 @@ import { DataModule } from './data/data.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    WarModule,
     DataModule,
     HomeModule
   ],

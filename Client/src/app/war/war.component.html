@@ -18,7 +18,7 @@
             <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid img-p"  [@animImg]="animateState">
           <h2>{{ champions[0].name }}</h2></button>
         </div>
-        <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
+        <div *ngIf="displayedValue" style="margin-top: 70px;" [@anim]>
           <ng-container *ngFor="let attribute of championAttributes">
             <p *ngIf="getValue(champions[0], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ getValue(champions[0], attribute.key) }}</p>
           </ng-container>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div *ngIf="currentScore" class="score">
-        <p [@anim]  class="d-inline text-light-emphasis" style="font-size: 32px">{{currentScore}}</p>
+        <p [@anim]  class="d-inline text-light-emphasis" style="font-size: 32px;">{{currentScore}}</p>
       </div>
 
       <div class="col-md-5 text-center" *ngIf="champions && champions[1]"  [@fadeOut]="fadeState">
@@ -47,7 +47,7 @@
             <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid img-p"  [@animImg]="animateState">
             <h2>{{ champions[1].name }}</h2></button>
           </div>
-          <div *ngIf="displayedValue" style="margin-top: 50px;" [@anim]>
+          <div *ngIf="displayedValue" style="margin-top: 70px;" [@anim]>
             <ng-container *ngFor="let attribute of championAttributes">
               <p *ngIf="getValue(champions[1], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ getValue(champions[1], attribute.key) }}</p>
             </ng-container>
@@ -58,15 +58,15 @@
 </div>
 
 <div class="container lost" *ngIf="lost" [@anim]>
-  <div class="card border-primary mb-3 lost" style="margin-left: 34%; max-width:25rem; height: 25rem; background-color: rgb(72, 22, 138);">
-    <div class="card-header">{{lostText}}</div>
+  <div class="card border-primary mb-3 lost" style="margin-left: 34%; max-width:25rem; height: 25rem; background-color: rgb(74, 37, 122);">
+    <div class="card-header" style="font-size: 32px;">{{lostText}}</div>
     <div class="card-body mb-lg-5">
-      <h4 class="card-title mb-5" style="margin-top:50px;">Personal Best : {{highScore}}</h4>
+      <h4 class="card-title mb-5" style="margin-top:70px;">Personal Best : {{highScore}}</h4>
       <p class="card-text mb-auto">Score : {{currentScore}}</p>
     </div>
   </div>
-  <div class="lost-b">
-    <button type="button" class="btn btn-lg btn-outline-secondary lost-btn" style="width: 150px;" routerLink=''>Home</button>
-    <button type="button" (click)="tryAgain()" class="btn btn-lg btn-outline-secondary lost-btn" style="width: 150px;">Try Again</button>
+  <div class="lost-b" style="margin-top:50px;">
+    <button type="button" class="btn btn-lg btn-outline-secondary lost-btn" style="width: 400px; height: 75px;" routerLink=''>Home</button>
+    <button type="button" (click)="tryAgain()" class="btn btn-lg btn-outline-secondary lost-btn" style="width: 400px; height:75px; margin-top: 25px;">Try Again</button>
   </div>
 </div>
