@@ -9,7 +9,6 @@ namespace API.Controllers
 {
     public class CharacterController : BaseController
     {
-
         private readonly IGenericRepository<Character> _characterRepository;
         private readonly IMapper _mapper;
 
@@ -48,24 +47,12 @@ namespace API.Controllers
 
             var war = new List<CharacterDto>() { ch1, ch2 };
 
-            //TODO safety
-            var randomIndex = new Random().Next(3, 14);
+            var randomIndex = EnumHelper.GetEnumValues();
 
-            return (PropertyEnum)randomIndex switch
-            {
-                PropertyEnum.Hp => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Hp })),
-                PropertyEnum.HpGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.HpGain })),
-                PropertyEnum.Mana => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Mana })),
-                PropertyEnum.ManaGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.ManaGain })),
-                PropertyEnum.Ad => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Ad })),
-                PropertyEnum.As => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.As })),
-                PropertyEnum.Armor => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Armor })),
-                PropertyEnum.ArmorGain => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.ArmorGain })),
-                PropertyEnum.Mr => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Mr })),
-                PropertyEnum.MS => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.MS })),
-                PropertyEnum.Range => Ok(war.Select(x => new { x.Name, x.PictureUrl, x.Range })),
-                _ => BadRequest()
-            };
+            var selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
+
+            return selector == null ? BadRequest() : Ok(war.Select(selector));
         }
+       
     }
 }
