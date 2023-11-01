@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { WarModule } from './war/war.module';
+import { HomeModule } from './home/home.module';
+import { DataModule } from './data/data.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { WarModule } from './war/war.module';
     HttpClientModule,
     CoreModule,
     WarModule,
-
+    DataModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
