@@ -13,21 +13,28 @@ import { AnimationBuilder, animate, state, style, transition, trigger } from '@a
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
       transition('void => *', [animate('.5s')]),
     ]),
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('1s', style({ opacity: 1 })),
-      ]),
+    trigger('animImg', [
+      state('void, reset', style({ opacity: 0, transform: 'scale(0.8)' })),
+      state('enter', style({ opacity: 1, transform: 'scale(1)' })),
+      transition('* => enter', [animate('.5s')]),
+    ]),
+    trigger('fadeOut', [
+      state('visible', style({ opacity: 1 })),
+      state('invisible', style({ opacity: 0 })),
+      transition('visible => invisible', [animate('0.5s')])
     ]),
   ],
 })
 
 export class WarComponent implements OnInit{
+  fadeState: string = 'visible';
   champions: Character[] = [];
   winner: any;
   lostText: string = '';
   userWinner: string = '';
+  animateState: string = 'void';
 
+  loading: boolean = false;
   displayedValue: boolean = false;
   cricleX: boolean = false;
   lost: boolean = false;
@@ -37,16 +44,54 @@ export class WarComponent implements OnInit{
   currentScore: number = 0;
   highScore: number = 0;
 
-  constructor(private warService: WarService, private animationBuilder: AnimationBuilder, private elementRef: ElementRef){}
+  championAttributes = [
+    { key: 'hp', label: 'hp?' },
+    { key: 'ad', label: 'attack damage?' },
+    { key: 'ms', label: 'movement speed?' },
+    { key: 'mana', label: 'mana attribute?' },
+    { key: 'manaGain', label: 'mana gain?' },
+    { key: 'as', label: 'attack speed?' },
+    { key: 'armor', label: 'armor?' },
+    { key: 'armorGain', label: 'armor gain?' },
+    { key: 'mr', label: 'magic resists?' },
+    { key: 'hpGain', label: 'hp gain?' },
+    { key: 'range', label: 'attack range?' }
+];
+
+  constructor(private warService: WarService){}
 
   ngOnInit(): void {
     this.getCharacters();
   }
 
+  getValue(champion: Character, key: string): any {
+    return champion[key as keyof Character];
+  }
+
+  private fadeOut(): void {
+    this.fadeState = 'invisible';
+  }
   getCharacters(): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.animateState = 'reset';
+    setTimeout(() => {
+      this.animateState = 'enter';
+    }, 0);
+
     this.warService.getWarCharacters().subscribe({
-      next: response => this.champions = response,
+      next: response => {
+        this.champions = response;
+        this.loading = false;
+      },
+      error: err => {
+        console.error('Error fetching characters:', err);
+        this.loading = false;
+      }
     });
+    this.fadeState ='visible'
   }
 
   private winnerCharacter(): void {
@@ -71,6 +116,7 @@ export class WarComponent implements OnInit{
   }
 
   userChoice(side: string): void{
+    this.loading = true;
     this.winnerCharacter();
     if(side === 'left'){
       this.userWinner = this.champions[0].name;
@@ -96,19 +142,25 @@ export class WarComponent implements OnInit{
       })
   }
   private onWin(): void{
+
     this.win = true;
     this.currentScore++;
     this.delay(1500).then(any =>{
+      this.loading = false;
       this.displayedValue = false;
       this.isEqual = false;
       this.win = false;
-      this.getCharacters();
+      this.fadeOut();
+      this.delay(1500).then(any => {
+        this.getCharacters();
+      })
     })
   }
   private onLost(): void{
     this.cricleX = true;
     this.delay(1500).then(any => {
       this.lost = true;
+      this.loading = false;
       this.LostTextPicker();
       if(this.currentScore > this.highScore){
         this.highScore = this.currentScore;
@@ -116,7 +168,8 @@ export class WarComponent implements OnInit{
       }
     })
   }
-   tryAgain(): void{
+
+  tryAgain(): void{
     this.cricleX = false;
     this.currentScore = 0;
     this.displayedValue = false;

@@ -27,6 +27,9 @@ p{
   -webkit-box-shadow: 15px 15px 10px #111010;
   -khtml-box-shadow: 15px 15px 10px #111010;
 }
+.btn:disabled {
+  opacity: 1;
+}
 .score{
   position: absolute;
   text-align: center;
