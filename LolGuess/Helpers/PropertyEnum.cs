@@ -2,18 +2,26 @@
 {
     public enum PropertyEnum
     {
-        Name = 1,
-        PictureUrl = 2,
-        Hp = 3,
-        HpGain = 4,
-        Mana = 5,
-        ManaGain = 6,
-        Ad = 7,
-        As = 8,
-        Armor = 9,
-        ArmorGain = 10,
-        Mr = 11,
-        MS = 12,
-        Range = 13
+        Hp = 1,
+        HpGain = 2,
+        Mana = 3,
+        ManaGain = 4,
+        Ad = 5,
+        As = 6,
+        Armor = 7,
+        ArmorGain = 8,
+        Mr = 9,
+        MS = 10,
+        Range = 11
     }
+    public static class EnumHelper
+    {
+        public static int GetEnumValues()
+        {
+            var random = new Random();
+            var propertyValues = Enum.GetValues(typeof(PropertyEnum)).Cast<int>();
+            return random.Next(propertyValues.Min(), propertyValues.Max() +1);
+        }
+    }
+
 }

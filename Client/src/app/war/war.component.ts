@@ -44,7 +44,8 @@ export class WarComponent implements OnInit{
     { key: 'range', label: 'attack range?' }
 ];
 
-  constructor(private warService: WarService){}
+  constructor(private warService: WarService){
+  }
 
   ngOnInit(): void {
     this.getCharacters();

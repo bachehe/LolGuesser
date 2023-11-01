@@ -23,5 +23,23 @@ namespace API.Helpers
             return new List<Character>() { firstChampion, secondChampion };
 
         }
+        public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum)
+        {
+            return propertyEnum switch
+            {
+                PropertyEnum.Hp => x => new { x.Name, x.PictureUrl, x.Hp },
+                PropertyEnum.HpGain => x => new { x.Name, x.PictureUrl, x.HpGain },
+                PropertyEnum.Mana => x => new { x.Name, x.PictureUrl, x.Mana },
+                PropertyEnum.ManaGain => x => new { x.Name, x.PictureUrl, x.ManaGain },
+                PropertyEnum.Ad => x => new { x.Name, x.PictureUrl, x.Ad },
+                PropertyEnum.As => x => new { x.Name, x.PictureUrl, x.As },
+                PropertyEnum.Armor => x => new { x.Name, x.PictureUrl, x.Armor },
+                PropertyEnum.ArmorGain => x => new { x.Name, x.PictureUrl, x.ArmorGain },
+                PropertyEnum.Mr => x => new { x.Name, x.PictureUrl, x.Mr },
+                PropertyEnum.MS => x => new { x.Name, x.PictureUrl, x.MS },
+                PropertyEnum.Range => x => new { x.Name, x.PictureUrl, x.Range },
+                _ => null
+            };
+        }
     }
 }

@@ -1,6 +1,5 @@
-<div class="container table-container" [@fade]>
+<div class="container table-container" [@fade] *ngIf="champions.length > 0">
 <h1>Data from {{dataFrom}}</h1>
-
 <ng-container>
   <table>
     <thead>
