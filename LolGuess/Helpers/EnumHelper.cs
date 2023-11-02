@@ -1,14 +1,5 @@
 ﻿namespace API.Helpers
 {
-    //public static class EnumHelper
-    //{
-    //    public static int GetEnumValues()
-    //    {
-    //        var random = new Random();
-    //        var propertyValues = Enum.GetValues(typeof(PropertyEnum)).Cast<int>();
-    //        return random.Next(propertyValues.Min(), propertyValues.Max() +1);
-    //    }
-    //}
     public static class EnumHelper
     {
         private static readonly Random Random = new Random();
