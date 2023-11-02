@@ -47,7 +47,7 @@ namespace API.Controllers
 
             var war = new List<CharacterDto>() { ch1, ch2 };
 
-            var randomIndex = EnumHelper.GetEnumValues();
+            var randomIndex = EnumHelper.GetRandomEnumValue<PropertyEnum>();
 
             var selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
 

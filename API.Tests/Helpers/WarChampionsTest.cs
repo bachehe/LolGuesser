@@ -30,29 +30,47 @@ namespace API.Tests.Helpers
             Assert.NotEqual(result[0], result[1]);
         }
 
-        [Fact]
-        public void GetSelector_Hp_ReturnsFunctionWithExpectedProperties()
+        [Theory]
+        [InlineData(PropertyEnum.Hp, 100, 100)]
+        [InlineData(PropertyEnum.Ad, 55, 55)]
+        [InlineData(PropertyEnum.Mana, 72, 72)]
+        [InlineData(PropertyEnum.ManaGain, 311, 311)]
+        [InlineData(PropertyEnum.HpGain, 1030, 1030)]
+        [InlineData(PropertyEnum.As, 66, 66)]
+        [InlineData(PropertyEnum.ArmorGain, 26, 26)]
+        [InlineData(PropertyEnum.Armor, 41, 41)]
+        [InlineData(PropertyEnum.Mr, 30, 30)]
+        [InlineData(PropertyEnum.MS, 25, 25)]
+        [InlineData(PropertyEnum.Range,  50, 50)]
+        public void GetSelector_Hp_ReturnsFunctionWithExpectedProperties(PropertyEnum propEnum, decimal propertyValue, decimal expected)
         {
-            var propertyEnum = PropertyEnum.Hp;
-            var character = new CharacterDto { Name = "Test", PictureUrl = "http://example.com", Hp = 100 };
+            var character = new CharacterDto
+            {
+                Name = "Test",
+                PictureUrl = "http://example.com",
+                HpGain = propertyValue,
+                Hp = propertyValue,
+                ManaGain = propertyValue,
+                Ad = propertyValue,
+                As = propertyValue,
+                Armor = propertyValue,
+                ArmorGain = propertyValue,
+                Mr = propertyValue,
+                MS = propertyValue,
+                Range = propertyValue,
+                Mana = propertyValue
+            };
 
-            var selector = WarChampions.GetSelector(propertyEnum);
-            Assert.NotNull(selector); 
+            var selector = WarChampions.GetSelector(propEnum);
+            Assert.NotNull(selector);
 
             var result = selector(character);
-            Assert.NotNull(result); 
+            Assert.NotNull(result);
 
-            var nameProperty = result.GetType().GetProperty("Name");
-            var pictureUrlProperty = result.GetType().GetProperty("PictureUrl");
-            var hpProperty = result.GetType().GetProperty("Hp");
+            var resultProperty = result.GetType().GetProperty(propEnum.ToString());
+            Assert.NotNull(resultProperty);
 
-            Assert.NotNull(nameProperty);
-            Assert.NotNull(pictureUrlProperty);
-            Assert.NotNull(hpProperty);
-
-            Assert.Equal("Test", nameProperty.GetValue(result));
-            Assert.Equal("http://example.com", pictureUrlProperty.GetValue(result));
-            //Assert.Equal(100, hpProperty.GetValue(result));
+            Assert.Equal(expected, resultProperty.GetValue(result));
         }
 
         [Fact]
