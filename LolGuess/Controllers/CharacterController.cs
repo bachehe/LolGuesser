@@ -52,7 +52,6 @@ namespace API.Controllers
             var selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
 
             return selector == null ? BadRequest() : Ok(war.Select(selector));
-        }
-       
+        } 
     }
 }
