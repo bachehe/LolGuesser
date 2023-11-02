@@ -129,7 +129,7 @@ export class WarComponent implements OnInit{
       })
   }
   private onWin(): void{
-
+    console.log(this.highScore);
     this.win = true;
     this.currentScore++;
     this.delay(1500).then(any =>{
@@ -154,6 +154,8 @@ export class WarComponent implements OnInit{
         localStorage.setItem('session', JSON.stringify(this.highScore));
       }
     })
+    let score = localStorage.getItem('session');
+    this.highScore = score !== null ? Number(score) : this.highScore;
   }
 
   tryAgain(): void{
