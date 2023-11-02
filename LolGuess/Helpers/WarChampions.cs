@@ -21,7 +21,6 @@ namespace API.Helpers
             while (firstChampion == secondChampion);
 
             return new List<Character>() { firstChampion, secondChampion };
-
         }
         public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum) => propertyEnum switch
             {

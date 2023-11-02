@@ -33,10 +33,10 @@ namespace API.Controllers
 
             var warCharacters = WarChampions.Generate(champions);
 
-            var fisrtCharacter = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
+            var firstChampion = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
             var secondCharacter = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
 
-            var result = MappedList(fisrtCharacter, secondCharacter);
+            var result = MappedList(firstChampion, secondCharacter);
 
             return result;
         }
