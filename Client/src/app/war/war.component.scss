@@ -20,10 +20,6 @@ h2{
 }
 p{
   font-size: 38px;
-  @media (max-width: 768px) {
-    font-size: 26px;
-  }
-
 }
 .img-p{
   box-shadow: 15px 15px 10px #111010;
@@ -41,21 +37,12 @@ p{
   top:70%;
   left: 50%;
   transform: translate(-50%, -50%);
-  @media (max-width: 768px) {
-    top:30%;
-    font-size:12px;
-  }
 }
 .lost-btn{
   display: block;
   margin: 10px auto;
   width: 400px;
   height: 75px;
-  @media (max-width: 768px) {
-    width: 200px;
-    height: 50px;
-  }
-
 }
 .lost-btn:hover{
   background-color: rgb(74, 37, 122);
@@ -64,27 +51,16 @@ p{
 .lost-b{
   text-align: center;
   margin-top:50px;
-  @media (max-width: 768px) {
-    margin-top:0px;
-    width:15rem;
-  }
-
 }
 .lost-h{
   margin:150px;
 }
 .card-header{
   font-size: 32px;
-  @media (max-width: 768px) {
-    font-size: 24px;
 
-  }
 }
 .card-title{
   margin-top:70px;
-  @media (max-width: 768px) {
-    margin-top:10px;
-  }
 }
 .lost{
   width: 25rem;
@@ -92,20 +68,12 @@ p{
   position: relative;
   text-align: center;
   color: white;
-  @media (max-width: 768px) {
-    width:15rem;
-    margin-top:0px;
-  }
 }
-
 .vs-line {
   display: flex;
   align-items: center;
   margin-top: 110%;
-  @media (max-width: 768px) {
-    opacity: 0;
-    margin-top:0px;
- }
+
 }
 .line {
   flex-grow: 1;
@@ -113,7 +81,6 @@ p{
   background-color: white;
 
 }
-
 .vs {
   margin: 0 15px;
   color: white;
@@ -127,21 +94,12 @@ p{
     position: relative;
     text-align: center;
     color: white;
-    @media (max-width: 768px) {
-      scale:0.8;
-      margin-bottom:15px;
-      margin-top: 0px;
-      margin:0px;
-    }
 }
 .img-h1:hover{
   transform: scale(1.05);
 }
 .score-height{
   margin-top:70px;
-  @media (max-width: 768px) {
-    margin-top: 0px;
-  }
 }
 
 .circle {
@@ -167,8 +125,68 @@ p{
   color: white;
 }
 .container{
-  margin-top: 100px;
-  @media (max-width: 768px) {
+  margin-top: 75px;
+}
+
+//phone
+@media (max-width: 768px) {
+  p{
+    font-size: 26px;
+  }
+  .score{
+    top:30%;
+    font-size:12px;
+
+  }
+  .lost-btn{
+    width: 200px;
+    height: 50px;
+  }
+  .lost-b{
+    margin-top:0px;
+    width:15rem;
+  }
+  .card-header{
+    font-size: 24px;
+  }
+  .card-title{
+    margin-top:10px;
+
+  }
+  .vs-line {
+    @media (max-width: 768px) {
+      opacity: 0;
+      margin-top:0px;
+   }
+  }
+  .img-h1{
+    @media (max-width: 768px) {
+      scale:0.8;
+      margin-bottom:15px;
+      margin-top: 0px;
+      margin:0px;
+    }
+  }
+  .container{
     margin-top: 0px;
+  }
+  .score-height{
+    margin-top: 0px;
+  }
+}
+
+//wide screens
+@media (min-width:2560px) {
+  .img-h1 {
+  scale:1;
+  margin: 0 auto;
+  }
+
+  .img-fluid {
+  scale:1;
+  height: auto;
+  }
+  .container{
+  margin-top:15px;
   }
 }
