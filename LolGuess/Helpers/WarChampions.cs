@@ -22,7 +22,9 @@ namespace API.Helpers
 
             return new List<Character>() { firstChampion, secondChampion };
         }
-        public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum) => propertyEnum switch
+
+        public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum) 
+            => propertyEnum switch
             {
                 PropertyEnum.Hp => x => new { x.Name, x.PictureUrl, x.Hp },
                 PropertyEnum.HpGain => x => new { x.Name, x.PictureUrl, x.HpGain },

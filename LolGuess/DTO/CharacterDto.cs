@@ -17,5 +17,10 @@ namespace API.DTO
         public decimal Mr { get; set; }
         public decimal MS { get; set; }
         public decimal Range { get; set; }
+
+        public CharacterDto()
+        {
+
+        }
     }
 }
