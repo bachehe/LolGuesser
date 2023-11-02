@@ -21,11 +21,8 @@ namespace API.Helpers
             while (firstChampion == secondChampion);
 
             return new List<Character>() { firstChampion, secondChampion };
-
         }
-        public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum)
-        {
-            return propertyEnum switch
+        public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum) => propertyEnum switch
             {
                 PropertyEnum.Hp => x => new { x.Name, x.PictureUrl, x.Hp },
                 PropertyEnum.HpGain => x => new { x.Name, x.PictureUrl, x.HpGain },
@@ -39,7 +36,6 @@ namespace API.Helpers
                 PropertyEnum.MS => x => new { x.Name, x.PictureUrl, x.MS },
                 PropertyEnum.Range => x => new { x.Name, x.PictureUrl, x.Range },
                 _ => null
-            };
-        }
+            };    
     }
 }
