@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace API.Tests.Controllers
 {
-    internal class CharacterControllerTest
+    public class CharacterControllerTest
     {
+
     }
 }
