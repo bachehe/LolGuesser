@@ -51,14 +51,8 @@ export class WarComponent implements OnInit{
     this.getCharacters();
   }
   getValue(champion: Character, key: string): any {
-    const value = champion[key as keyof Character];
-    console.log(`Attribute Key: ${key}, Value: ${value}`);
-    return value;
+    return champion[key as keyof Character];
   }
-  // getValue(champion: Character, key: string): any {
-
-  //   return champion[key as keyof Character];
-  // }
 
   private fadeOut(): void {
     this.fadeState = 'invisible';
