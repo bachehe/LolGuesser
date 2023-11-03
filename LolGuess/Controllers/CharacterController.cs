@@ -36,22 +36,15 @@ namespace API.Controllers
             var firstChampion = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
             var secondCharacter = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
 
-            var result = MappedList(firstChampion, secondCharacter);
+            var res = WarChampions.SelectObjects(firstChampion, secondCharacter);
 
-            return result;
-        }
-        private ActionResult<IReadOnlyList<CharacterDto>> MappedList(CharacterDto ch1, CharacterDto ch2)
-        {
-            if (ch1 == null || ch2 == null)
+            if (res == null)
                 return BadRequest();
 
-            var war = new List<CharacterDto>() { ch1, ch2 };
 
-            var randomIndex = EnumHelper.GetRandomEnumValue<PropertyEnum>();
-
-            var selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
-
-            return selector == null ? BadRequest() : Ok(war.Select(selector));
-        } 
+            return Ok(res);
+        }
+        
+       
     }
 }

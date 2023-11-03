@@ -50,10 +50,15 @@ export class WarComponent implements OnInit{
   ngOnInit(): void {
     this.getCharacters();
   }
-
   getValue(champion: Character, key: string): any {
-    return champion[key as keyof Character];
+    const value = champion[key as keyof Character];
+    console.log(`Attribute Key: ${key}, Value: ${value}`);
+    return value;
   }
+  // getValue(champion: Character, key: string): any {
+
+  //   return champion[key as keyof Character];
+  // }
 
   private fadeOut(): void {
     this.fadeState = 'invisible';
