@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Xunit.Sdk;
 
 namespace API.Tests.Helpers
@@ -41,7 +42,7 @@ namespace API.Tests.Helpers
         [InlineData(PropertyEnum.Armor, 41, 41)]
         [InlineData(PropertyEnum.Mr, 30, 30)]
         [InlineData(PropertyEnum.MS, 25, 25)]
-        [InlineData(PropertyEnum.Range,  50, 50)]
+        [InlineData(PropertyEnum.Range, 50, 50)]
         public void GetSelector_Hp_ReturnsFunctionWithExpectedProperties(PropertyEnum propEnum, decimal propertyValue, decimal expected)
         {
             var character = new CharacterDto
@@ -81,5 +82,18 @@ namespace API.Tests.Helpers
 
             Assert.Null(selector);
         }
+
+        //TODO
+        [Fact]
+        public void SelectObjects_EmptyList_ReturnsNotNull()
+        {
+            var ch1 = new CharacterDto { };
+            var ch2 = new CharacterDto { };
+
+            var result = WarChampions.SelectObjects(ch1, ch2).ToList();
+
+            Assert.NotNull(result);
+        }
     }
+   
 }
