@@ -23,6 +23,17 @@ namespace API.Helpers
             return new List<Character>() { firstChampion, secondChampion };
         }
 
+        public static IEnumerable<object> SelectObjects(CharacterDto ch1, CharacterDto ch2)
+        {
+            var war = new List<CharacterDto>() { ch1, ch2 };
+
+            var randomIndex = EnumHelper.GetRandomEnumValue<PropertyEnum>();
+
+            var selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
+
+            return war.Select(selector);
+        }
+
         public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum) 
             => propertyEnum switch
             {

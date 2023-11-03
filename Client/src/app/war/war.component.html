@@ -4,9 +4,10 @@
     <div class="d-grid gap-2">
       <ng-container *ngIf="champions && champions[0]">
         <h1 class="d-inline ml-1">Which champion has more basic
-        <ng-container *ngFor="let attribute of championAttributes">
-          <p *ngIf="getValue(champions[0], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ attribute.label }}</p>
-        </ng-container></h1>
+          <ng-container *ngFor="let attribute of championAttributes">
+            <p *ngIf="getValue(champions[0], attribute.key) !== undefined" class="text-light-emphasis d-inline ml-1">{{ attribute.label }} </p>
+          </ng-container>
+        </h1>
       </ng-container>
     </div>
   </div>
@@ -22,7 +23,17 @@
         </div>
         <div *ngIf="displayedValue" style="margin-top: 70px;" [@anim]>
           <ng-container *ngFor="let attribute of championAttributes">
-            <p *ngIf="getValue(champions[0], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ getValue(champions[0], attribute.key) }}</p>
+            <ng-container *ngIf="attribute.key === 'manaGain' || attribute.key === 'armorGain'">
+              <p class="text-light-emphasis d-inline ml-1">
+                {{ getValue(champions[0], attribute.key) === 0 ? '0' : getValue(champions[0], attribute.key) }}
+              </p>
+            </ng-container>
+
+            <ng-container *ngIf="attribute.key !== 'manaGain' && attribute.key !== 'armorGain'">
+              <p *ngIf="getValue(champions[0], attribute.key) !== null && getValue(champions[0], attribute.key) !== undefined" class="text-light-emphasis d-inline ml-1">
+                  {{ getValue(champions[0], attribute.key) }}
+              </p>
+            </ng-container>
           </ng-container>
         </div>
       </div>
@@ -44,7 +55,7 @@
         <p [@anim]  class="d-inline text-light-emphasis" style="font-size: 32px;">{{currentScore}}</p>
       </div>
 
-<!-- RIGHT IMG || DOWN IMG-->
+      <!-- RIGHT IMG || DOWN IMG-->
       <div class="col-md-5 text-center" *ngIf="champions && champions[1]"  [@fadeOut]="fadeState">
         <div class="img-h1">
           <button [disabled]="loading" class="btn" (click)="userChoice('right')" type="button">
@@ -53,7 +64,17 @@
           </div>
           <div *ngIf="displayedValue" class="score-height" [@anim]>
             <ng-container *ngFor="let attribute of championAttributes">
-              <p *ngIf="getValue(champions[1], attribute.key)" class="text-light-emphasis d-inline ml-1">{{ getValue(champions[1], attribute.key) }}</p>
+              <ng-container *ngIf="attribute.key === 'manaGain' || attribute.key === 'armorGain'">
+                <p class="text-light-emphasis d-inline ml-1">
+                  {{ getValue(champions[1], attribute.key) === 1 ? '0' : getValue(champions[1], attribute.key) }}
+                </p>
+              </ng-container>
+
+              <ng-container *ngIf="attribute.key !== 'manaGain' && attribute.key !== 'armorGain'">
+                <p *ngIf="getValue(champions[1], attribute.key) !== null && getValue(champions[1], attribute.key) !== undefined" class="text-light-emphasis d-inline ml-1">
+                    {{ getValue(champions[1], attribute.key) }}
+                </p>
+              </ng-container>
             </ng-container>
           </div>
       </div>

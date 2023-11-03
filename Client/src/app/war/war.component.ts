@@ -50,7 +50,6 @@ export class WarComponent implements OnInit{
   ngOnInit(): void {
     this.getCharacters();
   }
-
   getValue(champion: Character, key: string): any {
     return champion[key as keyof Character];
   }
