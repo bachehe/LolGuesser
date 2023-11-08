@@ -6,6 +6,8 @@ namespace API.Helpers
 {
     public static class WarChampions
     {
+        private static Func<CharacterDto, object>? _selector;
+
         public static List<Character> Generate(IReadOnlyList<Character> characters)
         {
             var rnd = new Random();
@@ -23,32 +25,54 @@ namespace API.Helpers
             return new List<Character>() { firstChampion, secondChampion };
         }
 
-        public static IEnumerable<object> SelectObjects(CharacterDto ch1, CharacterDto ch2)
+        public static IEnumerable<object> SelectObjects(CharacterDto ch1, CharacterDto ch2, bool isShort)
         {
             var war = new List<CharacterDto>() { ch1, ch2 };
+            int randomIndex;
 
-            var randomIndex = EnumHelper.GetRandomEnumValue<PropertyEnum>();
+            if (isShort)
+            {
+                randomIndex = EnumHelper.GetRandomEnumValue<ShortPropertyEnum>();
+                _selector = WarChampions.GetSelector((ShortPropertyEnum)randomIndex);
+            }
+            else
+            {
+                randomIndex = EnumHelper.GetRandomEnumValue<PropertyEnum>();
+                _selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
+            }
 
-            var selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
 
-            return war.Select(selector);
+            return war.Select(_selector);
         }
 
-        public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum) 
+        public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum)
             => propertyEnum switch
             {
-                PropertyEnum.Hp => x => new { x.Name, x.PictureUrl, x.Hp },
                 PropertyEnum.HpGain => x => new { x.Name, x.PictureUrl, x.HpGain },
-                PropertyEnum.Mana => x => new { x.Name, x.PictureUrl, x.Mana },
                 PropertyEnum.ManaGain => x => new { x.Name, x.PictureUrl, x.ManaGain },
+                PropertyEnum.ArmorGain => x => new { x.Name, x.PictureUrl, x.ArmorGain },
+                PropertyEnum.Armor => x => new { x.Name, x.PictureUrl, x.Armor },
+                PropertyEnum.Hp => x => new { x.Name, x.PictureUrl, x.Hp },
+                PropertyEnum.Mana => x => new { x.Name, x.PictureUrl, x.Mana },
                 PropertyEnum.Ad => x => new { x.Name, x.PictureUrl, x.Ad },
                 PropertyEnum.As => x => new { x.Name, x.PictureUrl, x.As },
-                PropertyEnum.Armor => x => new { x.Name, x.PictureUrl, x.Armor },
-                PropertyEnum.ArmorGain => x => new { x.Name, x.PictureUrl, x.ArmorGain },
                 PropertyEnum.Mr => x => new { x.Name, x.PictureUrl, x.Mr },
                 PropertyEnum.MS => x => new { x.Name, x.PictureUrl, x.MS },
                 PropertyEnum.Range => x => new { x.Name, x.PictureUrl, x.Range },
                 _ => null
-            };    
+            };
+
+        public static Func<CharacterDto, object>? GetSelector(ShortPropertyEnum propertyEnum)
+           => propertyEnum switch
+           {
+               ShortPropertyEnum.Armor => x => new { x.Name, x.PictureUrl, x.Armor },
+               ShortPropertyEnum.Hp => x => new { x.Name, x.PictureUrl, x.Hp },
+               ShortPropertyEnum.Mana => x => new { x.Name, x.PictureUrl, x.Mana },
+               ShortPropertyEnum.Ad => x => new { x.Name, x.PictureUrl, x.Ad },
+               ShortPropertyEnum.As => x => new { x.Name, x.PictureUrl, x.As },
+               ShortPropertyEnum.Mr => x => new { x.Name, x.PictureUrl, x.Mr },
+               ShortPropertyEnum.MS => x => new { x.Name, x.PictureUrl, x.MS },
+               _ => null
+           };
     }
 }
