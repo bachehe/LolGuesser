@@ -10,6 +10,11 @@ namespace API.Controllers
 {
     public class CharacterController : BaseController
     {
+        private const string NameAttribute = "Name";
+        private const string PicAttribute = "PictureUrl";
+        private const string ManaAttribute = "Mana";
+        private const int ManaChecker = 10;
+
         private readonly IGenericRepository<Character> _characterRepository;
         private readonly IMapper _mapper;
 
@@ -31,6 +36,7 @@ namespace API.Controllers
         [HttpGet("war")]
         public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetWarCharacters()
         {
+            bool isShort = false;
             var champions = await _characterRepository.ListAllAsync();
 
             var warCharacters = WarChampions.Generate(champions);
@@ -38,7 +44,7 @@ namespace API.Controllers
             var firstChampion = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
             var secondChampion = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
 
-            var res = WarChampions.SelectObjects(firstChampion, secondChampion);
+            var res = WarChampions.SelectObjects(firstChampion, secondChampion, false);
 
             if (res == null)
                 return BadRequest();
@@ -50,6 +56,7 @@ namespace API.Controllers
         [HttpGet("random-item")]
         public async Task<ActionResult<IReadOnlyList<ChampionItemDto>>> GetItemChampions()
         {
+            var isShort = true;
             var champions = await _characterRepository.ListAllAsync();
 
             var item1 = new ItemDto()
@@ -90,7 +97,7 @@ namespace API.Controllers
             MergeChampionWithItem(firstChampion, item1);
             MergeChampionWithItem(secondChampion, item2);
 
-            var res = WarChampions.SelectObjects(firstChampion, secondChampion);
+            var res = WarChampions.SelectObjects(firstChampion, secondChampion, isShort);
 
             var champsItems = new ChampionItemDto()
             {
@@ -108,6 +115,7 @@ namespace API.Controllers
             foreach (var property in typeof(CharacterDto).GetProperties())
             {
                 var itemProperty = typeof(ItemDto).GetProperty(property.Name);
+
                 if (itemProperty == null) continue;
 
                 var championValue = property.GetValue(champion);
@@ -115,12 +123,15 @@ namespace API.Controllers
 
                 if (championValue == null || itemValue == null) continue;
 
+                if (property.Name == NameAttribute || property.Name == PicAttribute) continue;
+
+                if (property.Name == ManaAttribute && (decimal)championValue < ManaChecker) continue;
+
                 if (property.PropertyType == typeof(string))    
                     property.SetValue(champion, (string)championValue + (string)itemValue);
                 
-                else if (property.PropertyType == typeof(double))          
-                    property.SetValue(champion, (double)championValue + (double)itemValue);
-                
+                else if (property.PropertyType == typeof(decimal))          
+                    property.SetValue(champion, (decimal)championValue + (decimal)itemValue);             
             }
         }
     }

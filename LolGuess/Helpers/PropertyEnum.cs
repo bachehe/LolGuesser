@@ -14,5 +14,14 @@
         MS = 10,
         Range = 11
     }
-
+    public enum ShortPropertyEnum
+    {
+        Hp = 1,
+        Mana = 2,
+        Ad = 3,
+        As = 4,
+        Armor = 5,
+        Mr = 6,
+        MS = 7
+    }
 }
