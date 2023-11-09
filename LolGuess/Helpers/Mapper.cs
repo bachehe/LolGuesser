@@ -10,6 +10,9 @@ namespace API.Helpers
         {
             CreateMap<Character, CharacterDto>()
                 .ForMember(x => x.PictureUrl, o => o.MapFrom<CharacterUrlResolver>());
+
+            CreateMap<Item, ItemDto>()
+                 .ForMember(x => x.PictureUrl, o => o.MapFrom<ItemUrlResolver>());
         }
     }
 }

@@ -20,6 +20,14 @@ namespace Infrastructure.Data
                 ctx.Champions.AddRange(champions);
             }
 
+            if (!ctx.Items.Any())
+            {
+                var itemsData = File.ReadAllText("../Infrastructure/Data/SeedData/itemsData.json");
+                var items = JsonSerializer.Deserialize<List<Item>>(itemsData);
+
+                ctx.Items.AddRange(items);
+            }
+
             if (ctx.ChangeTracker.HasChanges())
                 await ctx.SaveChangesAsync();
         }

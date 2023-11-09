@@ -62,13 +62,13 @@ namespace API.Controllers
             var item1 = new ItemDto()
             {
                 Ad = 500,
-                As = 500,
+                As = 0.5m,
                 Armor = 500,
                 Name = "Dupa",
                 Hp = 500,
                 Mana = 500,
                 Mr = 500,
-                MS = 500,
+                MS = 0.5m,
                 PictureUrl = "picture",
 
             }; 
@@ -76,13 +76,13 @@ namespace API.Controllers
             var item2 = new ItemDto()
             {
                 Ad = 500,
-                As = 500,
+                As = 0.5m,
                 Armor = 500,
                 Name = "Dupa",
                 Hp = 500,
                 Mana = 500,
                 Mr = 500,
-                MS = 500,
+                MS = 0.5m,
                 PictureUrl = "picture",
 
             };
