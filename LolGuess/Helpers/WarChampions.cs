@@ -8,6 +8,8 @@ namespace API.Helpers
     public static class WarChampions
     {
         private const string NameAttribute = "Name";
+        private const string MSAttribute = "MS";
+        private const string AsAttribute = "As";
         private const string PicAttribute = "PictureUrl";
         private const string ManaAttribute = "Mana";
         private const int ManaChecker = 10;
@@ -91,11 +93,15 @@ namespace API.Helpers
                 var championValue = property.GetValue(champion);
                 var itemValue = itemProperty.GetValue(item);
 
-                if (championValue == null || itemValue == null) continue;
-
                 if (property.Name == NameAttribute || property.Name == PicAttribute) continue;
 
                 if (property.Name == ManaAttribute && (decimal)championValue < ManaChecker) continue;
+
+                if(property.Name == MSAttribute || property.Name == AsAttribute)
+                {
+                    property.SetValue(champion, (decimal)championValue * (1 + (decimal)itemValue));
+                    continue;
+                }
 
                 property.SetValue(champion, (decimal)championValue + (decimal)itemValue);
             }
