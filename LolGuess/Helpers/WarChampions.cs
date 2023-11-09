@@ -1,11 +1,16 @@
 ﻿using API.DTO;
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 
 namespace API.Helpers
 {
     public static class WarChampions
     {
+        private const string NameAttribute = "Name";
+        private const string PicAttribute = "PictureUrl";
+        private const string ManaAttribute = "Mana";
+        private const int ManaChecker = 10;
         private static Func<CharacterDto, object>? _selector;
 
         public static List<Character> Generate(IReadOnlyList<Character> characters)
@@ -27,8 +32,8 @@ namespace API.Helpers
 
         public static IEnumerable<object> SelectObjects(CharacterDto ch1, CharacterDto ch2, bool isShort)
         {
-            var war = new List<CharacterDto>() { ch1, ch2 };
             int randomIndex;
+            var war = new List<CharacterDto>() { ch1, ch2 };
 
             if (isShort)
             {
@@ -74,5 +79,26 @@ namespace API.Helpers
                ShortPropertyEnum.MS => x => new { x.Name, x.PictureUrl, x.MS },
                _ => null
            };
+
+        public static void MergeChampionWithItem(CharacterDto champion, ItemDto item)
+        {
+            foreach (var property in typeof(CharacterDto).GetProperties())
+            {
+                var itemProperty = typeof(ItemDto).GetProperty(property.Name);
+
+                if (itemProperty == null) continue;
+
+                var championValue = property.GetValue(champion);
+                var itemValue = itemProperty.GetValue(item);
+
+                if (championValue == null || itemValue == null) continue;
+
+                if (property.Name == NameAttribute || property.Name == PicAttribute) continue;
+
+                if (property.Name == ManaAttribute && (decimal)championValue < ManaChecker) continue;
+
+                property.SetValue(champion, (decimal)championValue + (decimal)itemValue);
+            }
+        }
     }
 }

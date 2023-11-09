@@ -1,0 +1,13 @@
+[
+  {
+    "Name": "Aatrox",
+    "PictureUrl": "images/Aatrox.jpg",
+    "Hp": 650,
+    "Mana": 0,
+    "Ad": 60,
+    "As": 0.65,
+    "Armor": 38,
+    "Mr": 32,
+    "MS": 345,
+  }
+]
