@@ -2,8 +2,8 @@
 {
     public class ChampionItemDto
     {
-        public string Item { get; set; }    
-        public string ItemPictureUrl { get; set; }
+        public IEnumerable<string> Item { get; set; }    
+        public IEnumerable<string> ItemPictureUrl { get; set; }
         public IEnumerable<object> Character { get; set; }
     }
 }

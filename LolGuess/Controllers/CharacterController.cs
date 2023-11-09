@@ -10,18 +10,15 @@ namespace API.Controllers
 {
     public class CharacterController : BaseController
     {
-        private const string NameAttribute = "Name";
-        private const string PicAttribute = "PictureUrl";
-        private const string ManaAttribute = "Mana";
-        private const int ManaChecker = 10;
-
         private readonly IGenericRepository<Character> _characterRepository;
+        private readonly IGenericRepository<Item> _itemRepository;
         private readonly IMapper _mapper;
 
-        public CharacterController(IGenericRepository<Character> characterRepository, IMapper mapper)
+        public CharacterController(IGenericRepository<Character> characterRepository, IMapper mapper, IGenericRepository<Item> itemRepository)
         {
             _characterRepository = characterRepository;
             _mapper = mapper;
+            _itemRepository = itemRepository;
         }
 
         [HttpGet]
@@ -44,7 +41,7 @@ namespace API.Controllers
             var firstChampion = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
             var secondChampion = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
 
-            var res = WarChampions.SelectObjects(firstChampion, secondChampion, false);
+            var res = WarChampions.SelectObjects(firstChampion, secondChampion, isShort);
 
             if (res == null)
                 return BadRequest();
@@ -59,6 +56,9 @@ namespace API.Controllers
             var isShort = true;
             var champions = await _characterRepository.ListAllAsync();
 
+           //create and seed
+           // var items = await _itemRepository.ListAllAsync();
+
             var item1 = new ItemDto()
             {
                 Ad = 500,
@@ -70,7 +70,6 @@ namespace API.Controllers
                 Mr = 500,
                 MS = 500,
                 PictureUrl = "picture",
-                Range = 500,
 
             }; 
 
@@ -85,7 +84,6 @@ namespace API.Controllers
                 Mr = 500,
                 MS = 500,
                 PictureUrl = "picture",
-                Range = 500,
 
             };
 
@@ -94,45 +92,20 @@ namespace API.Controllers
             var firstChampion = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
             var secondChampion = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
 
-            MergeChampionWithItem(firstChampion, item1);
-            MergeChampionWithItem(secondChampion, item2);
+            WarChampions.MergeChampionWithItem(firstChampion, item1);
+            WarChampions.MergeChampionWithItem(secondChampion, item2);
 
-            var res = WarChampions.SelectObjects(firstChampion, secondChampion, isShort);
+            var championsList = WarChampions.SelectObjects(firstChampion, secondChampion, isShort);
 
             var champsItems = new ChampionItemDto()
             {
-                Character = res,
-                Item = item1.Name,
-                ItemPictureUrl = item1.PictureUrl,
+                Character = championsList,
+                Item = new List<string> { item1.Name, item2.Name },
+                ItemPictureUrl = new List<string> { item1.PictureUrl, item2.PictureUrl },
             };
 
 
             return Ok(champsItems);
-        }
-
-        private void MergeChampionWithItem(CharacterDto champion, ItemDto item)
-        {
-            foreach (var property in typeof(CharacterDto).GetProperties())
-            {
-                var itemProperty = typeof(ItemDto).GetProperty(property.Name);
-
-                if (itemProperty == null) continue;
-
-                var championValue = property.GetValue(champion);
-                var itemValue = itemProperty.GetValue(item);
-
-                if (championValue == null || itemValue == null) continue;
-
-                if (property.Name == NameAttribute || property.Name == PicAttribute) continue;
-
-                if (property.Name == ManaAttribute && (decimal)championValue < ManaChecker) continue;
-
-                if (property.PropertyType == typeof(string))    
-                    property.SetValue(champion, (string)championValue + (string)itemValue);
-                
-                else if (property.PropertyType == typeof(decimal))          
-                    property.SetValue(champion, (decimal)championValue + (decimal)itemValue);             
-            }
         }
     }
 }
