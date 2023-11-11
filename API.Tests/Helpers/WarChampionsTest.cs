@@ -23,7 +23,7 @@ namespace API.Tests.Helpers
                 new Character{},
             }.AsReadOnly();
 
-            var result = WarChampions.Generate(characters);
+            var result = WarChampions.GenerateWarChampions(characters);
 
             Assert.Equal(2, result.Count);
             Assert.Contains(result[0], characters);
@@ -87,10 +87,9 @@ namespace API.Tests.Helpers
         [Fact]
         public void SelectObjects_EmptyList_ReturnsNotNull()
         {
-            var ch1 = new CharacterDto { };
-            var ch2 = new CharacterDto { };
+            var list = new List<CharacterDto>();
 
-            var result = WarChampions.SelectObjects(ch1, ch2).ToList();
+            var result = WarChampions.SelectObjects(list, false).ToList();
 
             Assert.NotNull(result);
         }

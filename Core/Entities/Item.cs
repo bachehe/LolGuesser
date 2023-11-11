@@ -17,5 +17,10 @@ namespace Core.Entities
         public decimal Armor { get; set; }
         public decimal Mr { get; set; }
         public decimal MS { get; set; }
+
+        public Item()
+        {
+
+        }
     }
 }

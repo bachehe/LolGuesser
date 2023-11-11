@@ -46,7 +46,7 @@ namespace API.Controllers
             bool isShort = false;
             var champions = await _characterRepository.ListAllAsync();
 
-            var warCharacters = WarChampions.Generate(champions);
+            var warCharacters = WarChampions.GenerateWarChampions(champions);
 
             if (warCharacters.Count() == 0)
                 return BadRequest();
@@ -71,8 +71,8 @@ namespace API.Controllers
             var itemsTask = _itemRepository.ListAllAsync();
             await Task.WhenAll(characterTask, itemsTask);
 
-            var warCharacters = WarChampions.Generate(characterTask.Result);
-            var items = WarChampions.GetItems(itemsTask.Result);
+            var warCharacters = WarChampions.GenerateWarChampions(characterTask.Result);
+            var items = WarChampions.GenerateItems(itemsTask.Result);
 
             var (championsList, itemsList) = CreateMergedItemAndChampionList(warCharacters, items);
 
@@ -81,24 +81,13 @@ namespace API.Controllers
             if (champions is null || champions.Count() == 0)
                 return BadRequest();
 
-            var itemNames = new List<string>();
-            var itemPictureUrls = new List<string>();
+            var result = WarChampions.ChampionsAndItemsList(champions, itemsList);
 
-            for (int i = 0; i < itemsList.Count; i++)
-            {
-                itemNames.Add(itemsList[i].Name);
-                itemPictureUrls.Add(itemsList[i].PictureUrl);
-            }
-
-            return Ok(new ChampionItemDto
-            {
-                Character = champions,
-                Item = itemNames,
-                ItemPictureUrl = itemPictureUrls,
-            });
+            return result == null ? BadRequest() : Ok(result);
         }
 
         #region Private Methods
+
         private (List<CharacterDto>, List<ItemDto>) CreateMergedItemAndChampionList(List<Character> warCharacters, List<Item> items)
         {
             var championsList = new List<CharacterDto>();

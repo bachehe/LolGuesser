@@ -17,7 +17,7 @@ namespace API.Helpers
 
         private static Func<CharacterDto, object>? _warProperties;
 
-        public static List<Character> Generate(IReadOnlyList<Character> characters)
+        public static List<Character> GenerateWarChampions(IReadOnlyList<Character> characters)
         {
             var rnd = new Random();
             var championsCount = characters.Count;
@@ -34,7 +34,7 @@ namespace API.Helpers
             return new List<Character>() { firstChampion, secondChampion };
         }
 
-        public static List<Item> GetItems(IReadOnlyList<Item> items)
+        public static List<Item> GenerateItems(IReadOnlyList<Item> items)
         {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
@@ -126,6 +126,24 @@ namespace API.Helpers
                     property.SetValue(champion, (decimal)championValue + (decimal)itemValue);
                 }
             }
+        }
+        public static ChampionItemDto ChampionsAndItemsList(IEnumerable<object> champions, List<ItemDto> items)
+        {
+            var itemNames = new List<string>();
+            var itemPictureUrls = new List<string>();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                itemNames.Add(items[i].Name);
+                itemPictureUrls.Add(items[i].PictureUrl);
+            }
+
+            return new ChampionItemDto
+            {
+                Character = champions,
+                Item = itemNames,
+                ItemPictureUrl = itemPictureUrls,
+            };
         }
     }
 }
