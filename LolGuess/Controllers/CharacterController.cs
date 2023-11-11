@@ -80,7 +80,7 @@ namespace API.Controllers
 
             var champions = WarChampions.SelectObjects(championsList[0], championsList[1], isShort);
 
-            if (championsList is null)
+            if (champions is null || champions.Count() == 0)
                 return BadRequest();
 
             return Ok(new ChampionItemDto

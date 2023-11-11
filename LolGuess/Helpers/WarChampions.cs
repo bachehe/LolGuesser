@@ -1,18 +1,19 @@
 ﻿using API.DTO;
 using Core.Entities;
-using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
 
 namespace API.Helpers
 {
     public static class WarChampions
     {
+        #region const
         private const string NameAttribute = "Name";
         private const string MSAttribute = "MS";
         private const string AsAttribute = "As";
         private const string PicAttribute = "PictureUrl";
         private const string ManaAttribute = "Mana";
         private const int ManaChecker = 10;
+        #endregion
+
         private static Func<CharacterDto, object>? _selector;
 
         public static List<Character> Generate(IReadOnlyList<Character> characters)
