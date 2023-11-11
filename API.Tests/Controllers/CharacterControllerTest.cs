@@ -16,14 +16,16 @@ namespace API.Tests.Controllers
     public class CharacterControllerTest
     {
         private readonly Mock<IGenericRepository<Character>> _mockRepo;
+        private readonly Mock<IGenericRepository<Item>> _mockItem;
         private readonly Mock<IMapper> _mockMapper;
         private readonly CharacterController _controller;
 
         public CharacterControllerTest()
         {
             _mockRepo = new Mock<IGenericRepository<Character>>();
+            _mockItem = new Mock<IGenericRepository<Item>>();
             _mockMapper = new Mock<IMapper>();
-            _controller = new CharacterController(_mockRepo.Object, _mockMapper.Object);
+            _controller = new CharacterController(_mockRepo.Object, _mockMapper.Object, _mockItem.Object);
         }
 
         [Fact]

@@ -16,8 +16,7 @@ namespace API.Helpers
         #endregion
 
         private static Func<CharacterDto, object>? _warProperties;
-
-        public static List<Character> Generate(IReadOnlyList<Character> characters)
+        public static List<Character> GenerateWarChampions(IReadOnlyList<Character> characters)
         {
             var rnd = new Random();
             var championsCount = characters.Count;
@@ -33,8 +32,7 @@ namespace API.Helpers
 
             return new List<Character>() { firstChampion, secondChampion };
         }
-
-        public static List<Item> GetItems(IReadOnlyList<Item> items)
+        public static List<Item> GenerateItems(IReadOnlyList<Item> items)
         {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
@@ -48,7 +46,6 @@ namespace API.Helpers
 
             return result;
         }
-
         public static IEnumerable<object> SelectObjects(List<CharacterDto> characters, bool isShort)
         {
             int randomIndex;
@@ -69,7 +66,6 @@ namespace API.Helpers
 
             return characters.Select(_warProperties);
         }
-
         public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum)
             => propertyEnum switch
             {
@@ -86,7 +82,6 @@ namespace API.Helpers
                 PropertyEnum.Range => x => new { x.Name, x.PictureUrl, x.Range },
                 _ => null
             };
-
         public static Func<CharacterDto, object>? GetSelector(ShortPropertyEnum propertyEnum)
            => propertyEnum switch
            {
@@ -99,7 +94,6 @@ namespace API.Helpers
                ShortPropertyEnum.MS => x => new { x.Name, x.PictureUrl, x.MS },
                _ => null
            };
-
         public static void MergeChampionWithItems(CharacterDto champion, List<ItemDto> items)
         {
             foreach (var item in items)
@@ -126,6 +120,24 @@ namespace API.Helpers
                     property.SetValue(champion, (decimal)championValue + (decimal)itemValue);
                 }
             }
+        }
+        public static ChampionItemDto ChampionsAndItemsList(IEnumerable<object> champions, List<ItemDto> items)
+        {
+            var itemNames = new List<string>();
+            var itemPictureUrls = new List<string>();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                itemNames.Add(items[i].Name);
+                itemPictureUrls.Add(items[i].PictureUrl);
+            }
+
+            return new ChampionItemDto
+            {
+                Character = champions,
+                Item = itemNames,
+                ItemPictureUrl = itemPictureUrls,
+            };
         }
     }
 }
