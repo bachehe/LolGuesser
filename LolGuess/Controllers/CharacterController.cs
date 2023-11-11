@@ -101,7 +101,6 @@ namespace API.Controllers
             var firstItem = MapItemToDto(items[0]);
             var secondItem = MapItemToDto(items[1]);
 
-            // Merge champions with items
             WarChampions.MergeChampionWithItem(firstChampion, firstItem);
             WarChampions.MergeChampionWithItem(secondChampion, secondItem);
 
