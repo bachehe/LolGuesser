@@ -32,6 +32,26 @@ namespace API.Helpers
             return new List<Character>() { firstChampion, secondChampion };
         }
 
+        public static List<Item> GetItems(IReadOnlyList<Item> items)
+        {
+            var rnd = new Random();
+
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+
+            int count = items.Count;
+
+            if (count == 0)
+                return new List<Item>();
+
+            var i = rnd.Next(0, count);
+            var j = rnd.Next(0, count);
+
+            var result = new List<Item> { items[i], items[j] };
+
+            return result;
+        }
+            
         public static IEnumerable<object> SelectObjects(CharacterDto ch1, CharacterDto ch2, bool isShort)
         {
             int randomIndex;

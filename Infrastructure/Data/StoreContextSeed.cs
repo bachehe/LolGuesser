@@ -22,7 +22,7 @@ namespace Infrastructure.Data
 
             if (!ctx.Items.Any())
             {
-                var itemsData = File.ReadAllText("../Infrastructure/Data/SeedData/itemsData.json");
+                var itemsData = File.ReadAllText("../Infrastructure/Data/SeedData/itemData.json");
                 var items = JsonSerializer.Deserialize<List<Item>>(itemsData);
 
                 ctx.Items.AddRange(items);

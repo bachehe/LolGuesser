@@ -50,62 +50,81 @@ namespace API.Controllers
             return Ok(res);
         }
 
+        //[HttpGet("random-item")]
+        //public async Task<ActionResult<IReadOnlyList<ChampionItemDto>>> GetItemChampions()
+        //{
+        //    var isShort = true;
+        //    var champions = await _characterRepository.ListAllAsync();
+        //    var itemsRepository = await _itemRepository.ListAllAsync();
+
+        //    var warCharacters = WarChampions.Generate(champions);
+        //    var items = WarChampions.GetItems(itemsRepository);
+
+        //    var firstChampion = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
+        //    var secondChampion = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
+
+        //    var firstItem = _mapper.Map<Item, ItemDto>(items[0]);
+        //    var secondItem = _mapper.Map<Item, ItemDto>(items[1]);
+
+
+        //    WarChampions.MergeChampionWithItem(firstChampion,firstItem);
+        //    WarChampions.MergeChampionWithItem(secondChampion, secondItem);
+
+        //    var championsList = WarChampions.SelectObjects(firstChampion, secondChampion, isShort);
+
+        //    var champsItems = new ChampionItemDto()
+        //    {
+        //        Character = championsList,
+        //        Item = new List<string> { firstItem.Name, secondItem.Name },
+        //        ItemPictureUrl = new List<string> { firstItem.PictureUrl, secondItem.PictureUrl },
+        //    };
+
+        //    return Ok(champsItems);
+        //}
         [HttpGet("random-item")]
         public async Task<ActionResult<IReadOnlyList<ChampionItemDto>>> GetItemChampions()
         {
             var isShort = true;
-            var champions = await _characterRepository.ListAllAsync();
 
-           //create and seed
-           // var items = await _itemRepository.ListAllAsync();
+            var characterTask = _characterRepository.ListAllAsync();
+            var itemsTask = _itemRepository.ListAllAsync();
+            await Task.WhenAll(characterTask, itemsTask);
 
-            var item1 = new ItemDto()
-            {
-                Ad = 500,
-                As = 0.5m,
-                Armor = 500,
-                Name = "Dupa",
-                Hp = 500,
-                Mana = 500,
-                Mr = 500,
-                MS = 0.5m,
-                PictureUrl = "picture",
-
-            }; 
-
-            var item2 = new ItemDto()
-            {
-                Ad = 500,
-                As = 0.5m,
-                Armor = 500,
-                Name = "Dupa",
-                Hp = 500,
-                Mana = 500,
-                Mr = 500,
-                MS = 0.5m,
-                PictureUrl = "picture",
-
-            };
+            var champions = characterTask.Result;
+            var itemsRepository = itemsTask.Result;
 
             var warCharacters = WarChampions.Generate(champions);
+            var items = WarChampions.GetItems(itemsRepository);
 
-            var firstChampion = _mapper.Map<Character, CharacterDto>(warCharacters[0]);
-            var secondChampion = _mapper.Map<Character, CharacterDto>(warCharacters[1]);
+            var firstChampion = MapCharacterToDto(warCharacters[0]);
+            var secondChampion = MapCharacterToDto(warCharacters[1]);
+            var firstItem = MapItemToDto(items[0]);
+            var secondItem = MapItemToDto(items[1]);
 
-            WarChampions.MergeChampionWithItem(firstChampion, item1);
-            WarChampions.MergeChampionWithItem(secondChampion, item2);
+            // Merge champions with items
+            WarChampions.MergeChampionWithItem(firstChampion, firstItem);
+            WarChampions.MergeChampionWithItem(secondChampion, secondItem);
 
             var championsList = WarChampions.SelectObjects(firstChampion, secondChampion, isShort);
 
-            var champsItems = new ChampionItemDto()
+            var champsItems = new ChampionItemDto
             {
                 Character = championsList,
-                Item = new List<string> { item1.Name, item2.Name },
-                ItemPictureUrl = new List<string> { item1.PictureUrl, item2.PictureUrl },
+                Item = new List<string> { firstItem.Name, secondItem.Name },
+                ItemPictureUrl = new List<string> { firstItem.PictureUrl, secondItem.PictureUrl },
             };
 
-
             return Ok(champsItems);
+        }
+
+        private CharacterDto MapCharacterToDto(Character character)
+        {
+            return _mapper.Map<Character, CharacterDto>(character);
+        }
+
+        private ItemDto MapItemToDto(Item item)
+        {
+            return _mapper.Map<Item, ItemDto>(item);
         }
     }
 }
