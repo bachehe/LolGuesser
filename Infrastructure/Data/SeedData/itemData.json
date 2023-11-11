@@ -11,11 +11,11 @@
     "MS": 0
   },
   {
-    "Name": "Bloodthrister",
-    "PictureUrl": "images/Bloodthrister.jpg",
+    "Name": "EdgeOfFinality",
+    "PictureUrl": "images/EdgeOfFinality.jpg",
     "Hp": 0,
     "Mana": 0,
-    "Ad": 55,
+    "Ad": 70,
     "As": 0,
     "Armor": 0,
     "Mr": 0,
@@ -31,5 +31,5 @@
     "Armor": 30,
     "Mr": 30,
     "MS": 0.1
-  },
+  }
 ]
