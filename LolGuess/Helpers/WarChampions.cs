@@ -11,10 +11,11 @@ namespace API.Helpers
         private const string AsAttribute = "As";
         private const string PicAttribute = "PictureUrl";
         private const string ManaAttribute = "Mana";
+        private const int RequestedItemsCount = 4;
         private const int ManaChecker = 10;
         #endregion
 
-        private static Func<CharacterDto, object>? _selector;
+        private static Func<CharacterDto, object>? _warProperties;
 
         public static List<Character> Generate(IReadOnlyList<Character> characters)
         {
@@ -35,42 +36,38 @@ namespace API.Helpers
 
         public static List<Item> GetItems(IReadOnlyList<Item> items)
         {
-            var rnd = new Random();
-
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
 
-            int count = items.Count;
+            var rnd = new Random();
+            var result = new List<Item>();
 
-            if (count == 0)
-                return new List<Item>();
-
-            var i = rnd.Next(0, count);
-            var j = rnd.Next(0, count);
-
-            var result = new List<Item> { items[i], items[j] };
+            for (int n = 0; n < RequestedItemsCount; n++)    
+                result.Add(items[rnd.Next(items.Count)]);
+           
 
             return result;
         }
-            
-        public static IEnumerable<object> SelectObjects(CharacterDto ch1, CharacterDto ch2, bool isShort)
+
+        public static IEnumerable<object> SelectObjects(List<CharacterDto> characters, bool isShort)
         {
             int randomIndex;
-            var war = new List<CharacterDto>() { ch1, ch2 };
+
+            if (characters.Count == 0)
+                return new List<object>();
 
             if (isShort)
             {
                 randomIndex = EnumHelper.GetRandomEnumValue<ShortPropertyEnum>();
-                _selector = WarChampions.GetSelector((ShortPropertyEnum)randomIndex);
+                _warProperties = WarChampions.GetSelector((ShortPropertyEnum)randomIndex);
             }
             else
             {
                 randomIndex = EnumHelper.GetRandomEnumValue<PropertyEnum>();
-                _selector = WarChampions.GetSelector((PropertyEnum)randomIndex);
+                _warProperties = WarChampions.GetSelector((PropertyEnum)randomIndex);
             }
 
-
-            return war.Select(_selector);
+            return characters.Select(_warProperties);
         }
 
         public static Func<CharacterDto, object>? GetSelector(PropertyEnum propertyEnum)
@@ -103,28 +100,31 @@ namespace API.Helpers
                _ => null
            };
 
-        public static void MergeChampionWithItem(CharacterDto champion, ItemDto item)
+        public static void MergeChampionWithItems(CharacterDto champion, List<ItemDto> items)
         {
-            foreach (var property in typeof(CharacterDto).GetProperties())
+            foreach (var item in items)
             {
-                var itemProperty = typeof(ItemDto).GetProperty(property.Name);
-
-                if (itemProperty == null) continue;
-
-                var championValue = property.GetValue(champion);
-                var itemValue = itemProperty.GetValue(item);
-
-                if (property.Name == NameAttribute || property.Name == PicAttribute) continue;
-
-                if (property.Name == ManaAttribute && (decimal)championValue < ManaChecker) continue;
-
-                if(property.Name == MSAttribute || property.Name == AsAttribute)
+                foreach (var property in typeof(CharacterDto).GetProperties())
                 {
-                    property.SetValue(champion, (decimal)championValue * (1 + (decimal)itemValue));
-                    continue;
-                }
+                    var itemProperty = typeof(ItemDto).GetProperty(property.Name);
 
-                property.SetValue(champion, (decimal)championValue + (decimal)itemValue);
+                    if (itemProperty == null) continue;
+
+                    var championValue = property.GetValue(champion);
+                    var itemValue = itemProperty.GetValue(item);
+
+                    if (property.Name == NameAttribute || property.Name == PicAttribute) continue;
+
+                    if (property.Name == ManaAttribute && (decimal)championValue < ManaChecker) continue;
+
+                    if (property.Name == MSAttribute || property.Name == AsAttribute)
+                    {
+                        property.SetValue(champion, (decimal)championValue * (1 + (decimal)itemValue));
+                        continue;
+                    }
+
+                    property.SetValue(champion, (decimal)championValue + (decimal)itemValue);
+                }
             }
         }
     }

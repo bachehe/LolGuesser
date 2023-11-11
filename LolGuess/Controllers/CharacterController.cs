@@ -6,6 +6,7 @@ using Core.Interfaces;
 using Infrastructure.Data.Migrations;
 using Microsoft.AspNetCore.Mvc;
 using System.CodeDom;
+using System.Reflection;
 
 namespace API.Controllers
 {
@@ -52,7 +53,7 @@ namespace API.Controllers
 
             var mappedChampions = MapChampions(warCharacters);
 
-            var res = WarChampions.SelectObjects(mappedChampions[0], mappedChampions[1], isShort);
+            var res = WarChampions.SelectObjects(mappedChampions, isShort);
 
             if (res == null)
                 return BadRequest();
@@ -73,26 +74,32 @@ namespace API.Controllers
             var warCharacters = WarChampions.Generate(characterTask.Result);
             var items = WarChampions.GetItems(itemsTask.Result);
 
-            var (championsList, itemsList) = CreateLists(warCharacters, items);
+            var (championsList, itemsList) = CreateMergedItemAndChampionList(warCharacters, items);
 
-            WarChampions.MergeChampionWithItem(championsList[0], itemsList[0]);
-            WarChampions.MergeChampionWithItem(championsList[1], itemsList[1]);
-
-            var champions = WarChampions.SelectObjects(championsList[0], championsList[1], isShort);
+            var champions = WarChampions.SelectObjects(championsList, isShort);
 
             if (champions is null || champions.Count() == 0)
                 return BadRequest();
 
+            var itemNames = new List<string>();
+            var itemPictureUrls = new List<string>();
+
+            for (int i = 0; i < itemsList.Count; i++)
+            {
+                itemNames.Add(itemsList[i].Name);
+                itemPictureUrls.Add(itemsList[i].PictureUrl);
+            }
+
             return Ok(new ChampionItemDto
             {
                 Character = champions,
-                Item = new List<string> { itemsList[0].Name, itemsList[1].Name },
-                ItemPictureUrl = new List<string> { itemsList[0].PictureUrl, itemsList[1].PictureUrl },
+                Item = itemNames,
+                ItemPictureUrl = itemPictureUrls,
             });
         }
 
         #region Private Methods
-        private (List<CharacterDto>, List<ItemDto>) CreateLists(List<Character> warCharacters, List<Item> items)
+        private (List<CharacterDto>, List<ItemDto>) CreateMergedItemAndChampionList(List<Character> warCharacters, List<Item> items)
         {
             var championsList = new List<CharacterDto>();
             var itemsList = new List<ItemDto>();
@@ -101,10 +108,14 @@ namespace API.Controllers
             {
                 championsList.Add(_mapper.Map<Character, CharacterDto>(warCharacters[i]));
             }
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
                 itemsList.Add(_mapper.Map<Item, ItemDto>(items[i]));
             }
+
+            WarChampions.MergeChampionWithItems(championsList[0], new List<ItemDto> { itemsList[0], itemsList[1] });
+            WarChampions.MergeChampionWithItems(championsList[1], new List<ItemDto> { itemsList[2], itemsList[3] });
+
 
             return (championsList, itemsList);
         }
