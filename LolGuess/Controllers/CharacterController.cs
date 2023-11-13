@@ -23,7 +23,7 @@ namespace API.Controllers
             _itemRepository = itemRepository;
         }
 
-        [HttpGet("champions")]
+        [HttpGet()]
         public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetCharacters()
         {
             var champions = await _characterRepository.ListAllAsync();
@@ -87,17 +87,8 @@ namespace API.Controllers
 
         private (List<CharacterDto>, List<ItemDto>) MapAndMergeDtos(List<Character> warCharacters, List<Item> items)
         {
-            var championsList = new List<CharacterDto>();
-            var itemsList = new List<ItemDto>();
-
-            for (int i = 0; i < 2; i++)
-            {
-                championsList.Add(_mapper.Map<Character, CharacterDto>(warCharacters[i]));
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                itemsList.Add(_mapper.Map<Item, ItemDto>(items[i]));
-            }
+            var championsList = _mapper.Map<List<CharacterDto>>(warCharacters);
+            var itemsList = _mapper.Map<List<ItemDto>>(items);
 
             WarChampions.MergeChampionWithItems(championsList[0], new List<ItemDto> { itemsList[0], itemsList[1] });
             WarChampions.MergeChampionWithItems(championsList[1], new List<ItemDto> { itemsList[2], itemsList[3] });
