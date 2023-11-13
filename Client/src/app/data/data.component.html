@@ -1,39 +1,74 @@
-<div class="container table-container" [@fade] *ngIf="champions.length > 0">
-<h1>Data from {{dataFrom}}</h1>
-<ng-container>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>HP</th>
-        <th>HP Gain</th>
-        <th>Mana</th>
-        <th>Mana Gain</th>
-        <th>AD</th>
-        <th>AS</th>
-        <th>Armor</th>
-        <th>Armor Gain</th>
-        <th>MR</th>
-        <th>MS</th>
-        <th>Range</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let character of champions">
-        <td>{{ character.name }}</td>
-        <td>{{ character.hp }}</td>
-        <td>{{ character.hpGain }}</td>
-        <td>{{ character.mana }}</td>
-        <td>{{ character.manaGain }}</td>
-        <td>{{ character.ad }}</td>
-        <td>{{ character.as }}</td>
-        <td>{{ character.armor }}</td>
-        <td>{{ character.armorGain }}</td>
-        <td>{{ character.mr }}</td>
-        <td>{{ character.ms }}</td>
-        <td>{{ character.range }}</td>
-      </tr>
-    </tbody>
-  </table>
-</ng-container>
+<div class="container table-container" *ngIf="champions.length > 0" >
+  <button class="btn btn-lg btn-outline-secondary lost-btn" (click)="changeData()" (animationstart)="true">Show {{buttonText}} Data</button>
+  <div *ngIf="!dataDisplay" >
+    <h1 [@fade]>Data from {{dataFrom}}</h1>
+    <ng-container>
+      <table   [@fade]>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>HP</th>
+            <th>HP Gain</th>
+            <th>Mana</th>
+            <th>Mana Gain</th>
+            <th>AD</th>
+            <th>AS</th>
+            <th>Armor</th>
+            <th>Armor Gain</th>
+            <th>MR</th>
+            <th>MS</th>
+            <th>Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let character of champions">
+            <td>{{ character.name }}</td>
+            <td>{{ character.hp }}</td>
+            <td>{{ character.hpGain }}</td>
+            <td>{{ character.mana }}</td>
+            <td>{{ character.manaGain }}</td>
+            <td>{{ character.ad }}</td>
+            <td>{{ character.as }}</td>
+            <td>{{ character.armor }}</td>
+            <td>{{ character.armorGain }}</td>
+            <td>{{ character.mr }}</td>
+            <td>{{ character.ms }}</td>
+            <td>{{ character.range }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+
+  <div *ngIf="dataDisplay"  [@fade]>
+    <h1>Data from {{dataFrom}}</h1>
+    <ng-container>
+      <table >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>HP</th>
+            <th>Mana</th>
+            <th>AD</th>
+            <th>AS</th>
+            <th>Armor</th>
+            <th>MR</th>
+            <th>MS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.name }}</td>
+            <td>{{ item.hp }}</td>
+            <td>{{ item.mana }}</td>
+            <td>{{ item.ad }}</td>
+            <td>{{ item.as }}</td>
+            <td>{{ item.armor }}</td>
+            <td>{{ item.mr }}</td>
+            <td>{{ item.ms }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
 </div>
