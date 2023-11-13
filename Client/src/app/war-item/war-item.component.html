@@ -1,1 +1,17 @@
-<p>war-item works!</p>
+<!-- Iterating over characters -->
+<div *ngIf="champions$ | async as champions"> <!-- Check if champions is defined -->
+  <div *ngFor="let mergedChampion of champions.character">
+    <div *ngIf="mergedChampion.character"> <!-- Check if character is defined -->
+      <div>Name: {{ mergedChampion.character.name }}</div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let item of (champions$ | async)?.item">
+  {{ item }}
+</div>
+
+<div *ngFor="let itemPictureUrl of (champions$ | async)?.itemPictureUrl">
+  <img [src]="itemPictureUrl" alt="Item Picture" style="scale: 2; margin-top: 50px;" >
+
+</div>
