@@ -60,7 +60,7 @@ namespace API.Controllers
         }
 
         [HttpGet("item-war")]
-        public async Task<ActionResult<IReadOnlyList<ChampionItemDto>>> GetItemChampions()
+        public async Task<ActionResult<IReadOnlyList<ChampionItemDto>>> GetWarCharactersWithItems()
         {
             var isShort = true;
 
