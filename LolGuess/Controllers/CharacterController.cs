@@ -54,12 +54,9 @@ namespace API.Controllers
 
             var mappedChampions = MapChampions(warCharacters);
 
-            var res = WarChampions.SelectObjects(mappedChampions, isShort);
+            var result = WarChampions.SelectObjects(mappedChampions, isShort);
 
-            if (res == null)
-                return BadRequest();
-
-            return Ok(res);
+            return result == null ? BadRequest() : Ok(result);
         }
 
         [HttpGet("item-war")]
