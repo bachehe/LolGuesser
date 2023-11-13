@@ -121,7 +121,7 @@ namespace API.Helpers
                 }
             }
         }
-        public static ChampionItemDto ChampionsAndItemsList(IEnumerable<object> champions, List<ItemDto> items)
+        public static ChampionItemDto CreateChampionsWithItemList(IEnumerable<object> champions, List<ItemDto> items)
         {
             var itemNames = new List<string>();
             var itemPictureUrls = new List<string>();
