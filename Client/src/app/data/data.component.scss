@@ -5,7 +5,17 @@
   }
 
 }
+.lost-btn{
+  display: block;
+  margin: 10px auto;
+  width: 400px;
+  height: 75px;
 
+}
+.lost-btn:hover{
+  background-color: black;
+
+}
 table {
   margin: 15px;
   text-align: center;
@@ -26,21 +36,21 @@ tr:nth-child(even) {
 th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #e914cc79;
   color: white;
 }
 
 h1 {
-  font-size: 42px;
+  font-size: 32px;
+  margin-left: 15px;
   margin-top: 50px;
   margin-bottom: 15px;
   color: rgb(207, 199, 207);
-  text-align: center;
-  justify-content: center;
+  text-align: left;
 
   @media (max-width: 768px) {
-    font-size: 32px;
+    font-size: 28px;
     margin-top: 25px;
     margin-bottom: 10px;
   }

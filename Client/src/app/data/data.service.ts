@@ -13,4 +13,7 @@ export class DataService {
   getCharacters(){
     return this.http.get<Character[]>(this.baseUrl + 'Character')
   }
+  getItems(){
+    return this.http.get<Character[]>(this.baseUrl + 'Character/items')
+  }
 }
