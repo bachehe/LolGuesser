@@ -31,6 +31,7 @@ namespace API.Controllers
 
             return Ok(data);
         }
+
         [HttpGet("items")]
         public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetAllItems()
         {
@@ -58,7 +59,6 @@ namespace API.Controllers
             if (res == null)
                 return BadRequest();
 
-
             return Ok(res);
         }
 
@@ -74,7 +74,7 @@ namespace API.Controllers
             var warCharacters = WarChampions.GenerateWarChampions(characterTask.Result);
             var items = WarChampions.GenerateItems(itemsTask.Result);
 
-            var (championsList, itemsList) = MappAndMergeChampions(warCharacters, items);
+            var (championsList, itemsList) = MapAndMergeDtos(warCharacters, items);
 
             var champions = WarChampions.SelectObjects(championsList, isShort);
 
@@ -88,7 +88,7 @@ namespace API.Controllers
 
         #region Private Methods
 
-        private (List<CharacterDto>, List<ItemDto>) MappAndMergeChampions(List<Character> warCharacters, List<Item> items)
+        private (List<CharacterDto>, List<ItemDto>) MapAndMergeDtos(List<Character> warCharacters, List<Item> items)
         {
             var championsList = new List<CharacterDto>();
             var itemsList = new List<ItemDto>();
@@ -105,16 +105,13 @@ namespace API.Controllers
             WarChampions.MergeChampionWithItems(championsList[0], new List<ItemDto> { itemsList[0], itemsList[1] });
             WarChampions.MergeChampionWithItems(championsList[1], new List<ItemDto> { itemsList[2], itemsList[3] });
 
-
             return (championsList, itemsList);
         }
-        private List<CharacterDto> MapChampions(List<Character> characters)
-        {
-            return new List<CharacterDto>
+        private List<CharacterDto> MapChampions(List<Character> characters) => new List<CharacterDto>
             {
                 _mapper.Map<Character, CharacterDto>(characters[0]), _mapper.Map<Character, CharacterDto>(characters[1])
             };
-        }
+ 
         #endregion  
     }
 }
