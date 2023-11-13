@@ -74,21 +74,21 @@ namespace API.Controllers
             var warCharacters = WarChampions.GenerateWarChampions(characterTask.Result);
             var items = WarChampions.GenerateItems(itemsTask.Result);
 
-            var (championsList, itemsList) = CreateMergedItemAndChampionList(warCharacters, items);
+            var (championsList, itemsList) = MappAndMergeChampions(warCharacters, items);
 
             var champions = WarChampions.SelectObjects(championsList, isShort);
 
             if (champions is null || champions.Count() == 0)
                 return BadRequest();
 
-            var result = WarChampions.ChampionsAndItemsList(champions, itemsList);
+            var result = WarChampions.CreateChampionsWithItemList(champions, itemsList);
 
             return result == null ? BadRequest() : Ok(result);
         }
 
         #region Private Methods
 
-        private (List<CharacterDto>, List<ItemDto>) CreateMergedItemAndChampionList(List<Character> warCharacters, List<Item> items)
+        private (List<CharacterDto>, List<ItemDto>) MappAndMergeChampions(List<Character> warCharacters, List<Item> items)
         {
             var championsList = new List<CharacterDto>();
             var itemsList = new List<ItemDto>();
