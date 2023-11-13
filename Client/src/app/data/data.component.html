@@ -1,7 +1,7 @@
 <div class="container table-container" *ngIf="champions.length > 0" >
   <button class="btn btn-lg btn-outline-secondary lost-btn" (click)="changeData()" (animationstart)="true">Show {{buttonText}} Data</button>
   <div *ngIf="!dataDisplay" >
-    <h1 [@fade]>Data from {{dataFrom}}</h1>
+    <h1 [@fade]>{{displayText}} Data from {{dataFrom}}</h1>
     <ng-container>
       <table   [@fade]>
         <thead>
@@ -41,7 +41,7 @@
   </div>
 
   <div *ngIf="dataDisplay"  [@fade]>
-    <h1>Data from {{dataFrom}}</h1>
+    <h1>{{displayText}} Data from {{dataFrom}}</h1>
     <ng-container>
       <table >
         <thead>

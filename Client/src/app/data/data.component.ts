@@ -16,13 +16,13 @@ export class DataComponent implements OnInit{
   dataDisplay: boolean = false;
   dataFrom: string = '01/11/2023';
   buttonText: string = 'Items';
+  displayText: string = 'Champions';
   champions: Character[] = [];
   items: Item[] = [];
 
   constructor(private dataService: DataService){}
 
   ngOnInit(): void {
-
     this.getChampions();
     this.getItems();
   }
@@ -39,8 +39,8 @@ export class DataComponent implements OnInit{
     })
   }
   public changeData(): boolean{
-    if(this.dataDisplay) this.buttonText = "Items"
-    else this.buttonText = "Champions";
+    this.buttonText = this.dataDisplay ? "Items" : "Champions";
+    this.displayText = this.dataDisplay ? "Champions" : "Items";
 
     console.log(this.dataDisplay);
     return this.dataDisplay == false ?  this.dataDisplay = true : this.dataDisplay = false;
