@@ -16,12 +16,23 @@ export class WarItemComponent implements OnInit {
   champions$: Observable<{ item: string[], itemPictureUrl: string[], character: Character[] }> | undefined;
   warChampions: MergedCharacter[] = [];
 
+  items: string[] = [];
+  itemPictureUrls: string[] = [];
+  characters: Character[] = [];
+
   constructor(private warService: WarItemService){
   }
 
   ngOnInit(): void {
-    this.champions$ = this.warService.getChampions();
-    this.champions$.subscribe(data => console.log(data));
-    this.champions$.forEach(x => console.log(x.character));
+
+  this.getData();
+
+  }
+  private getData(): void{
+    this.warService.getWarCharacters().subscribe(response => {
+      this.items = response.item;
+      this.itemPictureUrls = response.itemPictureUrl;
+      this.characters = response.character;
+  });
   }
 }
