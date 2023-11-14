@@ -79,7 +79,7 @@ namespace API.Controllers
 
             var result =  WarChampions.CreateChampionsWithItemList(champions, itemsList);
 
-            return Ok(result);
+            return result == null ? BadRequest() : Ok(result);
         }
 
         #region Private Methods
