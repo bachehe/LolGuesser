@@ -4,6 +4,7 @@ import { WarItemService } from './war-item.service';
 import { catchError, map, retry, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Character } from '../shared/models/character';
 
 @Component({
   selector: 'app-war-item',
@@ -12,7 +13,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/r
 })
 
 export class WarItemComponent implements OnInit {
-  champions$: Observable<{ item: string[], itemPictureUrl: string[], character: MergedCharacter[] }> | undefined;
+  champions$: Observable<{ item: string[], itemPictureUrl: string[], character: Character[] }> | undefined;
   warChampions: MergedCharacter[] = [];
 
   constructor(private warService: WarItemService){
