@@ -1,0 +1,11 @@
+<!-- Iterating over characters -->
+<div *ngFor="let character of (champions$ | async)?.character">
+  {{character.name}}
+</div>
+<div *ngFor="let item of (champions$ | async)?.item">
+  {{ item }}
+</div>
+
+<div *ngFor="let itemPictureUrl of (champions$ | async)?.itemPictureUrl">
+  <img [src]="itemPictureUrl" alt="Item Picture" style="max-height: 150px; margin-top: 50px;" >
+</div>
