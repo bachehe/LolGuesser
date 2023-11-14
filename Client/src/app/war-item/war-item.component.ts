@@ -24,10 +24,9 @@ export class WarItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-  this.getData();
-
+    this.getData();
   }
+
   private getData(): void{
     this.warService.getWarCharacters().subscribe(response => {
       this.items = response.item;
