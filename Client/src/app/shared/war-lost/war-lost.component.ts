@@ -13,6 +13,8 @@ export class WarLostComponent implements OnInit{
   @Input() currentScore: number = 0;
 
   constructor(private component:WarComponent){}
+  cricleX = false;
+  displayedValue = false;
 
   ngOnInit(): void {
     this.LostTextPicker();
@@ -23,6 +25,7 @@ export class WarLostComponent implements OnInit{
     this.component.tryAgain();
     this.lost = false;
 }
+
   private LostTextPicker(): void{
     switch (true) {
       case this.currentScore === 0:
