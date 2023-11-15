@@ -1,10 +1,10 @@
 <div class="container" >
   <div class="d-grid gap-2">
     <ng-container *ngIf="champions && champions[0]">
-      <h1 class="d-inline ml-1">Which champion has more basic
+      <h1 class="d-inline ml-1">Which champion has more
         <ng-container *ngFor="let attribute of championAttributes">
-          <p *ngIf="getValue(champions[0], attribute.key) !== undefined" class="text-light-emphasis d-inline ml-1">{{ attribute.label }} </p>
-        </ng-container>
+          <p *ngIf="getValue(champions[0], attribute.key) !== undefined" class="text-light-emphasis d-inline ml-1">{{ attribute.label }}</p>
+        </ng-container>?
       </h1>
     </ng-container>
   </div>

@@ -9,17 +9,17 @@ import { Character } from '../models/character';
 export class WarItemH1Component {
   @Input() champions: Character[] = [];
   @Input() championAttributes = [
-    { key: 'hp', label: 'hp?' },
-    { key: 'ad', label: 'attack damage?' },
-    { key: 'ms', label: 'movement speed?' },
-    { key: 'mana', label: 'mana attribute?' },
-    { key: 'manaGain', label: 'mana gain?' },
-    { key: 'as', label: 'attack speed?' },
-    { key: 'armor', label: 'armor?' },
-    { key: 'armorGain', label: 'armor gain?' },
-    { key: 'mr', label: 'magic resists?' },
-    { key: 'hpGain', label: 'hp gain?' },
-    { key: 'range', label: 'attack range?' }
+    { key: 'hp', label: 'hp' },
+    { key: 'ad', label: 'attack damage' },
+    { key: 'ms', label: 'movement speed' },
+    { key: 'mana', label: 'mana attribute' },
+    { key: 'manaGain', label: 'mana gain' },
+    { key: 'as', label: 'attack speed' },
+    { key: 'armor', label: 'armor' },
+    { key: 'armorGain', label: 'armor gain' },
+    { key: 'mr', label: 'magic resists' },
+    { key: 'hpGain', label: 'hp gain' },
+    { key: 'range', label: 'attack range' }
 ];
 
   getValue(champion: Character, key: string): any {
