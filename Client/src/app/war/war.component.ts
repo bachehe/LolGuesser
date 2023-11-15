@@ -15,6 +15,7 @@ import { WarLostComponent } from '../shared/war-lost/war-lost.component';
 
 export class WarComponent implements OnInit{
   @ViewChild(WarLostComponent) lostStatusComponent!: WarLostComponent;
+
   fadeState: string = 'visible';
   champions: Character[] = [];
   winner: any;
@@ -59,6 +60,7 @@ export class WarComponent implements OnInit{
   private fadeOut(): void {
     this.fadeState = 'invisible';
   }
+
   getCharacters(): void {
     if (this.loading) {
       return;
