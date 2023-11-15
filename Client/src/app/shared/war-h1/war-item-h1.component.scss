@@ -1,0 +1,19 @@
+h1{
+  color: cyan;
+  text-align: center;
+}
+.container{
+  margin-top: 75px;
+}
+//phone
+@media (max-width: 768px) {
+  .container{
+    margin-top: 0px;
+  }
+}
+//wide screens
+@media (min-width:2560px) {
+  .container{
+  margin-top:15px;
+  }
+}

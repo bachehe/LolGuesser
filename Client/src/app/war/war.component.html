@@ -1,6 +1,9 @@
 <div *ngIf="!lost">
   <!-- H1 SIGN -->
-  <app-war-item-h1 [champions]="champions" [championAttributes]="championAttributes"></app-war-item-h1>
+  <app-war-item-h1
+   [champions]="champions"
+   [championAttributes]="championAttributes">
+  </app-war-item-h1>
 
   <!-- LEFT IMG || UPPER IMG-->
   <div class="container">
@@ -72,16 +75,12 @@
   </div>
 </div>
 <!-- LOST -->
+
 <div class="container lost" *ngIf="lost" [@anim]>
-  <div class="card border-primary mb-3 lost" style="background-color: rgb(74, 37, 122);">
-    <div class="card-header">{{lostText}}</div>
-    <div class="card-body mb-lg-5">
-      <h4 class="card-title mb-5">Personal Best : {{highScore}}</h4>
-      <p class="card-text mb-auto">Score : {{currentScore}}</p>
-    </div>
-  </div>
-  <div class="lost-b">
-    <button type="button" (click)="tryAgain()" class="btn btn-lg btn-outline-secondary lost-btn">Try Again</button>
-    <button type="button" class="btn btn-lg btn-outline-secondary lost-btn"  routerLink=''>Home</button>
-  </div>
+  <app-war-lost
+    [lost]="lost"
+    [lostText]="lostText"
+    [highScore]="highScore"
+    [currentScore]="currentScore">
+  </app-war-lost>
 </div>
