@@ -33,17 +33,17 @@ export class WarComponent implements OnInit{
   highScore: number = 0;
 
   championAttributes = [
-    { key: 'hp', label: 'hp?' },
-    { key: 'ad', label: 'attack damage?' },
-    { key: 'ms', label: 'movement speed?' },
-    { key: 'mana', label: 'mana attribute?' },
-    { key: 'manaGain', label: 'mana gain?' },
-    { key: 'as', label: 'attack speed?' },
-    { key: 'armor', label: 'armor?' },
-    { key: 'armorGain', label: 'armor gain?' },
-    { key: 'mr', label: 'magic resists?' },
-    { key: 'hpGain', label: 'hp gain?' },
-    { key: 'range', label: 'attack range?' }
+    { key: 'hp', label: 'hp' },
+    { key: 'ad', label: 'attack damage' },
+    { key: 'ms', label: 'movement speed' },
+    { key: 'mana', label: 'mana attribute' },
+    { key: 'manaGain', label: 'mana gain' },
+    { key: 'as', label: 'attack speed' },
+    { key: 'armor', label: 'armor' },
+    { key: 'armorGain', label: 'armor gain' },
+    { key: 'mr', label: 'magic resists' },
+    { key: 'hpGain', label: 'hp gain' },
+    { key: 'range', label: 'attack range' }
 ];
 
   constructor(private warService: WarService){

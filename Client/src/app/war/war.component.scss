@@ -38,16 +38,7 @@ p{
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.lost-btn{
-  display: block;
-  margin: 10px auto;
-  width: 400px;
-  height: 75px;
-}
-.lost-btn:hover{
-  background-color: rgb(74, 37, 122);
-  color:white;
-}
+
 .lost-b{
   text-align: center;
   margin-top:50px;
@@ -55,13 +46,7 @@ p{
 .lost-h{
   margin:150px;
 }
-.card-header{
-  font-size: 32px;
 
-}
-.card-title{
-  margin-top:70px;
-}
 .lost{
   width: 25rem;
   margin-top: 150px;
@@ -138,21 +123,11 @@ p{
     font-size:12px;
 
   }
-  .lost-btn{
-    width: 200px;
-    height: 50px;
-  }
   .lost-b{
     margin-top:0px;
     width:15rem;
   }
-  .card-header{
-    font-size: 24px;
-  }
-  .card-title{
-    margin-top:10px;
 
-  }
   .vs-line {
     @media (max-width: 768px) {
       opacity: 0;
