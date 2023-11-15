@@ -1,0 +1,11 @@
+  <div class="card border-primary mb-3 lost" style="background-color: rgb(74, 37, 122);">
+    <div class="card-header">{{lostText}}</div>
+    <div class="card-body mb-lg-5">
+      <h4 class="card-title mb-5">Personal Best : {{highScore}}</h4>
+      <p class="card-text mb-auto">Score : {{currentScore}}</p>
+    </div>
+  </div>
+  <div class="lost-b">
+    <button type="button" (click)="triggerTryAgain()" class="btn btn-lg btn-outline-secondary lost-btn">Try Again</button>
+    <a style=" text-decoration: none;" href="home"><button type="button" class="btn btn-lg btn-outline-secondary lost-btn">Home</button></a>
+  </div>

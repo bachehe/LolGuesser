@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Character } from '../shared/models/character';
 import { WarService } from './war.service';
 import { basicAnimation, fadeAnimation, fadeOutAnimation, imageAnimation } from '../shared/animations';
+import { WarLostComponent } from '../shared/war-lost/war-lost.component';
 
 @Component({
   selector: 'app-war',
@@ -13,6 +14,7 @@ import { basicAnimation, fadeAnimation, fadeOutAnimation, imageAnimation } from 
 })
 
 export class WarComponent implements OnInit{
+  @ViewChild(WarLostComponent) lostStatusComponent!: WarLostComponent;
   fadeState: string = 'visible';
   champions: Character[] = [];
   winner: any;
@@ -147,7 +149,6 @@ export class WarComponent implements OnInit{
     this.delay(1500).then(any => {
       this.lost = true;
       this.loading = false;
-      this.LostTextPicker();
       if(this.currentScore > this.highScore){
         this.highScore = this.currentScore;
         localStorage.setItem('session', JSON.stringify(this.highScore));
@@ -164,27 +165,8 @@ export class WarComponent implements OnInit{
     this.lost = false;
     this.getCharacters();
   }
+
   private async delay(ms: number) {
     await new Promise<void>(resolve => setTimeout(()=> resolve(), ms));
-  }
-
-  private LostTextPicker(): void{
-    switch (true) {
-      case this.currentScore === 0:
-        this.lostText = "I could not be more disappointed";
-        break;
-      case this.currentScore > 0 && this.currentScore <= 2:
-        this.lostText = "You have failed me.";
-        break;
-      case this.currentScore > 2 && this.currentScore <= 4:
-        this.lostText = "OOPSIE WOOPSIE";
-        break;
-      case this.currentScore > 4 && this.currentScore <= 6:
-        this.lostText = "WOW";
-        break;
-      default:
-        this.lostText = "how?????????";
-        break;
-    }
   }
 }

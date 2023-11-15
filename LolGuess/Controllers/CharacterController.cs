@@ -64,12 +64,11 @@ namespace API.Controllers
         {
             var isShort = true;
 
-            var characterTask = _characterRepository.ListAllAsync();
-            var itemsTask = _itemRepository.ListAllAsync();
-            await Task.WhenAll(characterTask, itemsTask);
+            var characterTask = await _characterRepository.ListAllAsync();
+            var itemsTask = await _itemRepository.ListAllAsync();
 
-            var warCharacters = WarChampions.GenerateWarChampions(characterTask.Result);
-            var items = WarChampions.GenerateItems(itemsTask.Result);
+            var warCharacters = WarChampions.GenerateWarChampions(characterTask);
+            var items = WarChampions.GenerateItems(itemsTask);
 
             var (championsList, itemsList) = MapAndMergeDtos(warCharacters, items);
 
@@ -78,7 +77,7 @@ namespace API.Controllers
             if (champions is null || champions.Count() == 0)
                 return BadRequest();
 
-            var result = WarChampions.CreateChampionsWithItemList(champions, itemsList);
+            var result =  WarChampions.CreateChampionsWithItemList(champions, itemsList);
 
             return result == null ? BadRequest() : Ok(result);
         }

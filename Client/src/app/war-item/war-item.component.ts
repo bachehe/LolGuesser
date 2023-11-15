@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MergedCharacter } from '../shared/models/mergedCharacter';
 import { WarItemService } from './war-item.service';
-import { catchError, map, retry, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Character } from '../shared/models/character';
 
 @Component({
@@ -16,12 +14,36 @@ export class WarItemComponent implements OnInit {
   champions$: Observable<{ item: string[], itemPictureUrl: string[], character: Character[] }> | undefined;
   warChampions: MergedCharacter[] = [];
 
+  items: string[] = [];
+  itemPictureUrls: string[] = [];
+  characters: Character[] = [];
+
+  championAttributes = [
+    { key: 'hp', label: 'hp?' },
+    { key: 'ad', label: 'attack damage?' },
+    { key: 'ms', label: 'movement speed?' },
+    { key: 'mana', label: 'mana attribute?' },
+    { key: 'manaGain', label: 'mana gain?' },
+    { key: 'as', label: 'attack speed?' },
+    { key: 'armor', label: 'armor?' },
+    { key: 'armorGain', label: 'armor gain?' },
+    { key: 'mr', label: 'magic resists?' },
+    { key: 'hpGain', label: 'hp gain?' },
+    { key: 'range', label: 'attack range?' }
+];
+
   constructor(private warService: WarItemService){
   }
 
   ngOnInit(): void {
-    this.champions$ = this.warService.getChampions();
-    this.champions$.subscribe(data => console.log(data));
-    this.champions$.forEach(x => console.log(x.character));
+    this.getData();
+  }
+
+  private getData(): void{
+    this.warService.getWarCharacters().subscribe(response => {
+      this.items = response.item;
+      this.itemPictureUrls = response.itemPictureUrl;
+      this.characters = response.character;
+  });
   }
 }
