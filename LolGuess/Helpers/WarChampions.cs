@@ -12,7 +12,7 @@ namespace API.Helpers
         private const string PicAttribute = "PictureUrl";
         private const string ManaAttribute = "Mana";
         private const int RequestedItemsCount = 4;
-        private const int ManaChecker = 10;
+        private const int ManaChecker = 100;
         #endregion
 
         private static Func<CharacterDto, object>? _warProperties;
