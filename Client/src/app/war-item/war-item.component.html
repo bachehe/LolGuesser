@@ -6,13 +6,14 @@
 
   <div class="row justify-content-center"  >
 
-    <div class="image-stack-container" [@anim]>
-      <img class="stacked-image" src="{{itemPictureUrls[0]}}">
-      <img class="stacked-image bottom-image" src="{{itemPictureUrls[1]}}">
-  </div>
+
     <div class="col-md-5 text-center" [@fadeOut]="fadeState">
 
       <div class="img-h1" *ngIf="champions && champions[0]" >
+        <div class="image-stack-container" [@anim]>
+          <img class="img-fluid stacked-image"src="{{itemPictureUrls[0]}}">
+          <img class="img-fluid stacked-image" src="{{itemPictureUrls[1]}}">
+        </div>
         <button [disabled]="loading" class="btn" (click)="userChoice('left')" type="button">
           <img  src="{{champions[0].pictureUrl}}" alt="{{champions[0].name}}" class="img-fluid img-p"  [@animImg]="animateState">
         <h2>{{ champions[0].name }}</h2></button>
@@ -32,6 +33,7 @@
           </ng-container>
         </ng-container>
       </div>
+
     </div>
 
     <!-- VS  && SCORE-->
@@ -55,14 +57,16 @@
     <div class="col-md-5 text-center" *ngIf="champions && champions[1]"  [@fadeOut]="fadeState">
 
       <div class="img-h1">
-
+        <div class="image-stack-container-right" [@anim]>
+          <img class="img-fluid stacked-image-right"src="{{itemPictureUrls[2]}}">
+          <img class="img-fluid stacked-image-right" src="{{itemPictureUrls[3]}}">
+        </div>
         <button [disabled]="loading" class="btn" (click)="userChoice('right')" type="button">
           <img src="{{champions[1].pictureUrl}}" alt="{{champions[1].name}}" class="img-fluid img-p"  [@animImg]="animateState">
           <h2>{{ champions[1].name }}</h2></button>
         </div>
 
         <div *ngIf="displayedValue" class="score-height" [@anim]>
-
           <ng-container *ngFor="let attribute of championAttributes">
             <ng-container *ngIf="attribute.key === 'manaGain' || attribute.key === 'armorGain'">
               <p class="text-light-emphasis d-inline ml-1">
