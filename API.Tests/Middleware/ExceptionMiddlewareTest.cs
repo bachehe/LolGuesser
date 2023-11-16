@@ -32,7 +32,6 @@ namespace API.Tests.Middleware
             await middleware.InvokeAsync(context);
 
             context.Response.Body.Seek(0, SeekOrigin.Begin);
-            var reader = new StreamReader(context.Response.Body);
 
             Assert.Equal(null, context.Response.ContentType);
             Assert.Equal(StatusCodes.Status200OK, context.Response.StatusCode);
@@ -45,7 +44,6 @@ namespace API.Tests.Middleware
             var mockLogger = new Mock<ILogger<ExceptionMiddleware>>();
             var mockHost = new Mock<IHostEnvironment>();
 
-            // Arrange
             var middleware = new ExceptionMiddleware(
                 null,
                 mockLogger.Object,
@@ -55,13 +53,10 @@ namespace API.Tests.Middleware
             var context = new DefaultHttpContext();
             context.Response.Body = new MemoryStream();
 
-            // Act
             await middleware.InvokeAsync(context);
 
-            // Assert
             context.Response.Body.Seek(0, SeekOrigin.Begin);
             var reader = new StreamReader(context.Response.Body);
-            var responseBody = await reader.ReadToEndAsync();
 
             Assert.Equal("application/json", context.Response.ContentType);
             Assert.Equal(StatusCodes.Status500InternalServerError, context.Response.StatusCode);

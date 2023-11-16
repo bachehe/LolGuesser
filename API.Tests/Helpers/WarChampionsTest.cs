@@ -120,7 +120,7 @@ namespace API.Tests.Helpers
         [InlineData(50, 50, 0.1, 50, 5, 0.1, 50, 50, 0.1, 50, 50, 0.1, 50, 50, 0.01, 50, 50, 0.1, 150, 150, 0.1111, 150, 5, 0.121)]
         [InlineData(50, 50, 1, 50, 100, 1, 50, 50, 1, 50, 50, 1,50, 50, 1, 50, 50, 1,150, 150, 0.4, 150, 200, 4)]
         [InlineData(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0,0, 0, 0.1, 0, 0, 0)]
-        public void MergeChampionWithItems_(
+        public void MergeChampionWithItems_ForProperties_CheckIfItsEqual(
             int ad, int armor, decimal As, int hp, int mana, decimal ms,
             int iad1, int iarmor1, decimal iAs1, int ihp1, int imana1, decimal ims1,
             int iad2, int iarmor2, decimal iAs2, int ihp2, int imana2, decimal ims2,
