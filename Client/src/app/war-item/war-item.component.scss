@@ -75,7 +75,7 @@ p{
   scale: 1.2;
 }
 .img-h1{
-  z-index:2;
+  scale: 1;
   transition: all .2s ease-in-out;
     position: relative;
     text-align: center;
@@ -112,43 +112,6 @@ p{
 }
 .container{
   margin-top: 75px;
-}
-
-//phone
-@media (max-width: 768px) {
-  p{
-    font-size: 26px;
-  }
-  .score{
-    top:30%;
-    font-size:12px;
-
-  }
-  .lost-b{
-    margin-top:0px;
-    width:15rem;
-  }
-
-  .vs-line {
-    @media (max-width: 768px) {
-      opacity: 0;
-      margin-top:0px;
-   }
-  }
-  .img-h1{
-    @media (max-width: 768px) {
-      scale:0.8;
-      margin-bottom:15px;
-      margin-top: 0px;
-      margin:0px;
-    }
-  }
-  .container{
-    margin-top: 0px;
-  }
-  .score-height{
-    margin-top: 0px;
-  }
 }
 
 p{
@@ -212,13 +175,79 @@ p{
   margin-bottom: 55px;
 }
 
+//phone
+@media (max-width: 768px) {
+  p{
+    font-size: 26px;
+  }
+  .score{
+    top:30%;
+    font-size:12px;
+
+  }
+  .lost-b{
+    margin-top:0px;
+    width:15rem;
+  }
+
+  .vs-line {
+    @media (max-width: 768px) {
+      opacity: 0;
+      margin-top:0px;
+   }
+  }
+  .img-h1{
+    @media (max-width: 768px) {
+      scale:0.8;
+      margin-bottom:15px;
+      margin-top: 0px;
+      margin:0px;
+    }
+  }
+  .container{
+    margin-top: 0px;
+  }
+  .score-height{
+    margin-top: 0px;
+  }
+
+  .image-stack-container-right {
+    position: absolute;
+
+    margin-top: 700px;
+    left:25%;
+  }
+
+  .stacked-image-right {
+    min-height: 75px;
+    max-height: 75px;
+    margin-bottom: 50px;
+    margin-right: 50px;
+  }
+
+
+  .image-stack-container {
+    position: inherit;
+    display: inline;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+  }
+  .stacked-image {
+    min-height: 75px;
+    margin-right: 15px;
+    margin-left: 35px;
+    max-height: 75px;
+    margin-bottom: 70px;
+  }
+}
+
 //wide screens
-@media (min-width:2560px) {
+@media (min-width:2300px) {
   .container{
     margin-top: 0px;
   }
   .img-h1 {
-  scale:1;
   margin: 0 auto;
   }
 
@@ -229,7 +258,5 @@ p{
   .container{
   margin-top:15px;
   }
-  .container{
-    margin-top:0px;
-    }
+
 }
