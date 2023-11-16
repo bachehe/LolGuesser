@@ -68,25 +68,30 @@ export class WarItemComponent implements OnInit {
   private fadeOut(): void {
     this.fadeState = 'invisible';
   }
+  private fadeIn(): void{
+    this.fadeState = 'visible';
 
+  }
   private getData(): void{
+    this.fadeIn();
+
     if (this.loading) {
       return;
     }
     this.loading = true;
     this.animateState = 'reset';
-    setTimeout(() => {
-      this.animateState = 'enter';
-    }, 0);
+      setTimeout(() => {
+        this.animateState = 'enter';
+      }, 0);
 
-    this.warService.getWarCharacters().subscribe(response => {
-      this.items = response.item;
-      this.itemPictureUrls = response.itemPictureUrl;
-      this.champions = response.character;
-      this.loading = false;
-      }
-    );
-    this.fadeState ='visible'
+      this.warService.getWarCharacters().subscribe(response => {
+        this.items = response.item;
+        this.itemPictureUrls = response.itemPictureUrl;
+        this.champions = response.character;
+        this.loading = false;
+        }
+      );
+
   }
 
   private winnerCharacter(): void {
@@ -140,11 +145,11 @@ export class WarItemComponent implements OnInit {
     this.win = true;
     this.currentScore++;
     this.delay(1500).then(any =>{
+      this.fadeOut();
       this.loading = false;
       this.displayedValue = false;
       this.isEqual = false;
       this.win = false;
-      this.fadeOut();
       this.delay(1500).then(any => {
         this.getData();
       })
@@ -158,10 +163,10 @@ export class WarItemComponent implements OnInit {
       this.loading = false;
       if(this.currentScore > this.highScore){
         this.highScore = this.currentScore;
-        localStorage.setItem('session', JSON.stringify(this.highScore));
+        localStorage.setItem('sessionItem', JSON.stringify(this.highScore));
       }
     })
-    let score = localStorage.getItem('session');
+    let score = localStorage.getItem('sessionItem');
     this.highScore = score !== null ? Number(score) : this.highScore;
   }
 
