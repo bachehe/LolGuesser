@@ -141,7 +141,7 @@ export class WarComponent implements OnInit{
       this.isEqual = false;
       this.win = false;
       this.fadeOut();
-      this.delay(1500).then(any => {
+      this.delay(500).then(any => {
         this.getCharacters();
       })
     })
