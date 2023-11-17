@@ -73,8 +73,6 @@ export class WarItemComponent implements OnInit {
 
   }
   private getData(): void{
-    this.fadeIn();
-
     if (this.loading) {
       return;
     }
@@ -91,7 +89,7 @@ export class WarItemComponent implements OnInit {
         this.loading = false;
         }
       );
-
+      this.fadeIn();
   }
 
   private winnerCharacter(): void {
@@ -150,7 +148,7 @@ export class WarItemComponent implements OnInit {
       this.displayedValue = false;
       this.isEqual = false;
       this.win = false;
-      this.delay(1500).then(any => {
+      this.delay(500).then(any => {
         this.getData();
       })
     })
