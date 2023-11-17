@@ -1,5 +1,6 @@
 ﻿using API.DTO;
 using Core.Entities;
+using System.Reflection;
 
 namespace API.Helpers
 {
@@ -113,11 +114,11 @@ namespace API.Helpers
 
                     if (property.Name == MSAttribute || property.Name == AsAttribute)
                     {
-                        property.SetValue(champion, (decimal)championValue * (1 + (decimal)itemValue));
+                        property.SetValue(champion, Math.Round((decimal)championValue * (1 + (decimal)itemValue),2));                   
                         continue;
                     }
 
-                    property.SetValue(champion, (decimal)championValue + (decimal)itemValue);
+                    property.SetValue(champion, Math.Round((decimal)championValue + (decimal)itemValue,2));
                 }
             }
         }
