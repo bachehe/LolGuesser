@@ -80,5 +80,51 @@ namespace API.Tests.Controllers
             var result = await _controller.GetWarCharacters();
             Assert.Equal(typeof(ActionResult<IReadOnlyList<CharacterDto>>), result.GetType());
         }
+        [Fact]
+        public async Task GetWarCharactersWithItems_ReturnsBadRequest_NotMapped()
+        {
+            var ch1 = new Character()
+            {
+                Ad = 5,
+
+            };
+            var ch2 = new Character()
+            {
+                Ad = 52,
+            };
+            var i = new Item()
+            {
+                Ad = 5,
+            };
+
+            var characters = new List<Character> { ch1,ch2 };
+            var items = new List<Item> {i,i,i,i};
+
+            _mockRepo.Setup(repo => repo.ListAllAsync()).ReturnsAsync(characters);
+            _mockItem.Setup(repo => repo.ListAllAsync()).ReturnsAsync(items);
+
+            var result = await _controller.GetWarCharactersWithItems();
+
+            var okResult = Assert.IsType<BadRequestResult>(result.Result);
+            Assert.NotNull(okResult);
+
+        }
+
+        [Fact]
+        public async Task GetAllItems_ReturnsOkResult_WithItems()
+        {
+            var items = new List<Item> { new Item() { Ad = 1 }, new Item() { Ad = 2 } };
+            var itemDtos = new List<ItemDto> { new ItemDto() { Ad = 1 }, new ItemDto() { Ad = 1 } };
+
+            _mockItem.Setup(repo => repo.ListAllAsync()).ReturnsAsync(items);
+            _mockMapper.Setup(m => m.Map<IReadOnlyList<Item>, IReadOnlyList<ItemDto>>(It.IsAny<IReadOnlyList<Item>>()))
+                       .Returns(itemDtos);
+
+            var result = await _controller.GetAllItems();
+
+            var actionResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnValue = Assert.IsType<List<ItemDto>>(actionResult.Value);
+            Assert.Equal(itemDtos, returnValue);
+        }
     }
 }

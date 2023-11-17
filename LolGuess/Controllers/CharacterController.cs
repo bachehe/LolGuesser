@@ -72,10 +72,11 @@ namespace API.Controllers
 
             var (championsList, itemsList) = MapAndMergeDtos(warCharacters, items);
 
+            if(championsList == null || itemsList == null) return BadRequest(); 
+
             var champions = WarChampions.SelectObjects(championsList, isShort);
 
-            if (champions is null || champions.Count() == 0)
-                return BadRequest();
+            if (champions is null || champions.Count() == 0) return BadRequest();
 
             var result =  WarChampions.CreateChampionsWithItemList(champions, itemsList);
 
@@ -88,6 +89,9 @@ namespace API.Controllers
         {
             var championsList = _mapper.Map<List<CharacterDto>>(warCharacters);
             var itemsList = _mapper.Map<List<ItemDto>>(items);
+
+            if(championsList == null || itemsList == null)
+                return (championsList, itemsList);
 
             WarChampions.MergeChampionWithItems(championsList[0], new List<ItemDto> { itemsList[0], itemsList[1] });
             WarChampions.MergeChampionWithItems(championsList[1], new List<ItemDto> { itemsList[2], itemsList[3] });
