@@ -243,7 +243,7 @@ p{
 }
 
 //wide screens
-@media (min-width:2300px) {
+@media (min-width:2100px) {
   .container{
     margin-top: 0px;
   }
@@ -252,7 +252,7 @@ p{
   }
 
   .img-fluid {
-  scale:1;
+  scale:0.2;
   height: auto;
   }
   .container{
