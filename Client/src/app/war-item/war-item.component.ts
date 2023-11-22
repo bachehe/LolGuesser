@@ -18,7 +18,6 @@ import { WarLostComponent } from '../shared/war-lost/war-lost.component';
 export class WarItemComponent implements OnInit {
   @ViewChild(WarLostComponent) lostStatusComponent!: WarLostComponent;
 
-  champions$: Observable<{ item: string[], itemPictureUrl: string[], character: Character[] }> | undefined;
   warChampions: MergedCharacter[] = [];
 
   items: string[] = [];
