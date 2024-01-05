@@ -1,5 +1,5 @@
 # Lol Guesser 
--This web application  allows users to compare two champions from the popular game League of Legends and make a guess about which one is better. The app is designed for fun and entertainment and is not affiliated with Riot Games, the creator of League of Legends.
+-This web app allows users to compare two champions from the popular game League of Legends and make a guess about which one is better. The app is designed for fun and entertainment and is not affiliated with Riot Games, the creator of League of Legends.
 
 To be published as soon as next lol season will release.
 
