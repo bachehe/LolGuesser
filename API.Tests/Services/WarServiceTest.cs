@@ -5,11 +5,6 @@ using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace API.Tests.Services
 {
@@ -60,6 +55,32 @@ namespace API.Tests.Services
                 mapper.Map<IReadOnlyList<Character>, IReadOnlyList<CharacterDto>>(
                     It.Is<IReadOnlyList<Character>>(list => list.Count == characters.Count)),
                 Times.Once);
+        }
+
+        [Fact]
+        public async Task GetWarCharacters_ReturnsListOfCharacterDto()
+        {
+            var fakeCharacters = new List<Character>
+            {
+                new Character { Name = "Champion1", /* Set other properties */ },
+                new Character { Name = "Champion2", /* Set other properties */ }
+            };
+
+            var fakeMappedCharacters = new List<CharacterDto>
+            {
+                new CharacterDto { Name = "Champion1", /* Set other properties */ },
+                new CharacterDto { Name = "Champion2", /* Set other properties */ }
+            };
+
+            _mockCharacter.Setup(repo => repo.ListAllAsync()).ReturnsAsync(fakeCharacters);
+
+            _mockMapper.Setup(m => m.Map<CharacterDto>(It.IsAny<Character>()))
+                .Returns<Character>(src => fakeMappedCharacters.FirstOrDefault(dto => dto.Name == src.Name));
+
+            var resultTask = _warService.GetWarCharacters();
+            var result = await resultTask;
+
+            Assert.NotNull(result);
         }
     }
 }
