@@ -13,9 +13,8 @@ namespace API.Controllers
 
         private readonly IWarService _service;
 
-        public CharacterController(IGenericRepository<Character> characterRepository, IMapper mapper, IGenericRepository<Item> itemRepository, IWarService service)
+        public CharacterController(IWarService service)
         {
-
             _service = service;
         }
 
