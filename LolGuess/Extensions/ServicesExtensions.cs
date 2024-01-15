@@ -1,4 +1,5 @@
 ﻿using API.Errors;
+using API.Services;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@ namespace API.Extensions
                 };
             });
 
+            services.AddScoped<IWarService, WarService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

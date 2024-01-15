@@ -1,108 +1,50 @@
 ﻿using API.DTO;
 using API.Helpers;
+using API.Services;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
-using Infrastructure.Data.Migrations;
 using Microsoft.AspNetCore.Mvc;
-using System.CodeDom;
-using System.Reflection;
 
 namespace API.Controllers
 {
     public class CharacterController : BaseController
     {
-        private readonly IGenericRepository<Character> _characterRepository;
-        private readonly IGenericRepository<Item> _itemRepository;
-        private readonly IMapper _mapper;
 
-        public CharacterController(IGenericRepository<Character> characterRepository, IMapper mapper, IGenericRepository<Item> itemRepository)
+        private readonly IWarService _service;
+
+        public CharacterController(IGenericRepository<Character> characterRepository, IMapper mapper, IGenericRepository<Item> itemRepository, IWarService service)
         {
-            _characterRepository = characterRepository;
-            _mapper = mapper;
-            _itemRepository = itemRepository;
+
+            _service = service;
         }
 
         [HttpGet()]
         public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetCharacters()
         {
-            var champions = await _characterRepository.ListAllAsync();
-            var data = _mapper.Map<IReadOnlyList<Character>, IReadOnlyList<CharacterDto>>(champions);
-
-            return Ok(data);
+            var champions = await _service.GetCharacters();
+            return champions == null ? BadRequest() : Ok(champions);
         }
 
         [HttpGet("items")]
-        public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetAllItems()
+        public async Task<ActionResult<IReadOnlyList<ItemDto>>> GetAllItems()
         {
-            var items = await _itemRepository.ListAllAsync();
-            var data = _mapper.Map<IReadOnlyList<Item>, IReadOnlyList<ItemDto>>(items);
-
-            return Ok(data);
+            var items = await _service.GetAllItems();
+            return items == null ? BadRequest() : Ok(items);
         }
 
         [HttpGet("war")]
         public async Task<ActionResult<IReadOnlyList<CharacterDto>>> GetWarCharacters()
         {
-            bool isShort = false;
-            var champions = await _characterRepository.ListAllAsync();
-
-            var warCharacters = WarChampions.GenerateWarChampions(champions);
-
-            if (warCharacters.Count() == 0)
-                return BadRequest();
-
-            var mappedChampions = MapChampions(warCharacters);
-
-            var result = WarChampions.SelectObjects(mappedChampions, isShort);
-
-            return result == null ? BadRequest() : Ok(result);
+            var warCharacters = await _service.GetWarCharacters();
+            return warCharacters == null ? BadRequest() : Ok(warCharacters);
         }
 
         [HttpGet("item-war")]
         public async Task<ActionResult<IReadOnlyList<ChampionItemDto>>> GetWarCharactersWithItems()
         {
-            var isShort = true;
-
-            var characterTask = await _characterRepository.ListAllAsync();
-            var itemsTask = await _itemRepository.ListAllAsync();
-
-            var warCharacters = WarChampions.GenerateWarChampions(characterTask);
-            var items = WarChampions.GenerateItems(itemsTask);
-
-            var (championsList, itemsList) = MapAndMergeDtos(warCharacters, items);
-
-            if(championsList == null || itemsList == null) return BadRequest(); 
-
-            var champions = WarChampions.SelectObjects(championsList, isShort);
-
-            if (champions is null || champions.Count() == 0) return BadRequest();
-
-            var result =  WarChampions.CreateChampionsWithItemList(champions, itemsList);
-
-            return result == null ? BadRequest() : Ok(result);
+            var warCharacters = await _service.GetWarCharactersWithItems();
+            return warCharacters == null ? BadRequest() : Ok(warCharacters);
         }
-
-        #region Private Methods
-
-        private (List<CharacterDto>, List<ItemDto>) MapAndMergeDtos(List<Character> warCharacters, List<Item> items)
-        {
-            var championsList = _mapper.Map<List<CharacterDto>>(warCharacters);
-            var itemsList = _mapper.Map<List<ItemDto>>(items);
-
-            if(championsList == null || itemsList == null)
-                return (championsList, itemsList);
-
-            WarChampions.MergeChampionWithItems(championsList[0], new List<ItemDto> { itemsList[0], itemsList[1] });
-            WarChampions.MergeChampionWithItems(championsList[1], new List<ItemDto> { itemsList[2], itemsList[3] });
-
-            return (championsList, itemsList);
-        }
-        private List<CharacterDto> MapChampions(List<Character> characters) => new List<CharacterDto>
-            {
-                _mapper.Map<Character, CharacterDto>(characters[0]), _mapper.Map<Character, CharacterDto>(characters[1])
-            };
- 
-        #endregion  
     }
 }
