@@ -82,5 +82,63 @@ namespace API.Tests.Services
 
             Assert.NotNull(result);
         }
+        [Fact]
+        public async Task GetAllItems_ReturnsListOfItemDto()
+        {
+
+            var items = new List<Item> { new Item() { Ad = 1 }, new Item() { Ad = 2 } };
+            var itemDtos = new List<ItemDto> { new ItemDto() { Ad = 1 }, new ItemDto() { Ad = 1 } };
+
+            _mockItem.Setup(repo => repo.ListAllAsync()).ReturnsAsync(items);
+            _mockMapper.Setup(m => m.Map<IReadOnlyList<Item>, IReadOnlyList<ItemDto>>(It.IsAny<IReadOnlyList<Item>>()))
+                       .Returns(itemDtos);
+
+            var resultTask =  _warService.GetAllItems();
+            var result = await resultTask;
+
+            Assert.NotNull(result);
+        }  
+        [Fact]
+        public async Task GetWarCharactersWithItems_ReturnsListOfItemDto()
+        {
+            var warCharacters = new List<Character>
+            {
+                new Character { Name = "Champion1", PictureUrl ="url"},
+                new Character { Name = "Champion2", PictureUrl ="url" }
+            };
+
+            var items = new List<Item>
+            {
+                new Item { Id = 1, Name = "Item1", PictureUrl ="url" },
+                new Item { Id = 2, Name = "Item2", PictureUrl ="url" },
+                new Item { Id = 3, Name = "Item3", PictureUrl ="url" },
+                new Item { Id = 4, Name = "Item4", PictureUrl ="url" }
+            };
+
+            var expectedChampionsList = new List<CharacterDto>
+            {
+                new CharacterDto { Name = "Champion1", PictureUrl ="url" },
+                new CharacterDto { Name = "Champion2", PictureUrl ="url" }
+            };
+
+            var expectedItemsList = new List<ItemDto>
+            {
+                new ItemDto { Name = "Item1", PictureUrl ="url" },
+                new ItemDto { Name = "Item2", PictureUrl ="url" },
+                new ItemDto { Name = "Item3", PictureUrl ="url" },
+                new ItemDto { Name = "Item4", PictureUrl ="url" }
+            };
+
+            _mockCharacter.Setup(repo => repo.ListAllAsync()).ReturnsAsync(warCharacters);
+            _mockItem.Setup(repo => repo.ListAllAsync()).ReturnsAsync(items);
+
+            _mockMapper.Setup(m => m.Map<List<CharacterDto>>(warCharacters)).Returns(expectedChampionsList);
+            //_mockMapper.Setup(m => m.Map<List<ItemDto>>(items)).Returns(expectedItemsList);
+
+            var resultTask =  _warService.GetWarCharactersWithItems();
+            var result = await resultTask;
+
+            Assert.NotNull(result);
+        }
     }
 }
