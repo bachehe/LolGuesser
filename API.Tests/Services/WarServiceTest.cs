@@ -93,11 +93,11 @@ namespace API.Tests.Services
             _mockMapper.Setup(m => m.Map<IReadOnlyList<Item>, IReadOnlyList<ItemDto>>(It.IsAny<IReadOnlyList<Item>>()))
                        .Returns(itemDtos);
 
-            var resultTask =  _warService.GetAllItems();
+            var resultTask = _warService.GetAllItems();
             var result = await resultTask;
 
             Assert.NotNull(result);
-        }  
+        }
         [Fact]
         public async Task GetWarCharactersWithItems_ReturnsListOfItemDto()
         {
@@ -132,13 +132,16 @@ namespace API.Tests.Services
             _mockCharacter.Setup(repo => repo.ListAllAsync()).ReturnsAsync(warCharacters);
             _mockItem.Setup(repo => repo.ListAllAsync()).ReturnsAsync(items);
 
-            _mockMapper.Setup(m => m.Map<List<CharacterDto>>(warCharacters)).Returns(expectedChampionsList);
-            //_mockMapper.Setup(m => m.Map<List<ItemDto>>(items)).Returns(expectedItemsList);
+            _mockMapper.Setup(m => m.Map<List<ItemDto>>(It.IsAny<List<Item>>())).Returns(expectedItemsList);
 
-            var resultTask =  _warService.GetWarCharactersWithItems();
+            _mockMapper.Setup(m => m.Map<List<CharacterDto>>(It.IsAny<List<Character>>()))
+                 .Returns(expectedChampionsList);
+
+            var resultTask = _warService.GetWarCharactersWithItems();
             var result = await resultTask;
 
             Assert.NotNull(result);
+            Assert.IsAssignableFrom<ChampionItemDto>(result);
         }
     }
 }
