@@ -34,8 +34,7 @@ namespace API.Controllers
         {
             var items = await _service.GetAllItems();
 
-            if (items == null) return BadRequest();
-            
+            if (items == null) return BadRequest();       
 
             return items.Any() ? Ok(items) : NoContent();
         }
