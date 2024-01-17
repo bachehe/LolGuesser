@@ -82,6 +82,7 @@ namespace API.Tests.Services
 
             Assert.NotNull(result);
         }
+
         [Fact]
         public async Task GetAllItems_ReturnsListOfItemDto()
         {
@@ -97,7 +98,9 @@ namespace API.Tests.Services
             var result = await resultTask;
 
             Assert.NotNull(result);
+            Assert.IsAssignableFrom<IReadOnlyList<ItemDto>>(result);
         }
+
         [Fact]
         public async Task GetWarCharactersWithItems_ReturnsListOfItemDto()
         {
