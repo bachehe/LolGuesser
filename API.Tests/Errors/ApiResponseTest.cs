@@ -9,7 +9,6 @@ namespace API.Tests.Errors
         [InlineData(401, "Not authorized")]
         [InlineData(404, "No resource was found")]
         [InlineData(500, "Internal server error")]
-        [InlineData(null, null)]
         public void GetDefaultMessageTest(int code, string response)
         {
             var apiResponse = new ApiResponse(code, response);
