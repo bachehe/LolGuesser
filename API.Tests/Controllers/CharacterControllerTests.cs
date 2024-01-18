@@ -24,7 +24,7 @@ namespace API.Tests.Controllers
         [Fact]
         public async Task GetCharacters_Returns_OkResult_WithCharacters()
         {
-            var characters = new List<CharacterDto> { new CharacterDto {} };
+            var characters = new List<CharacterDto> { new CharacterDto { } };
             _warService.Setup(s => s.GetCharacters()).ReturnsAsync(characters);
             var controller = new CharacterController(_warService.Object);
 
@@ -130,6 +130,46 @@ namespace API.Tests.Controllers
             var result = await controller.GetWarCharacters();
 
             Assert.IsType<BadRequestResult>(result.Result);
+        }
+
+        [Fact]
+        public async Task GetWarCharactersWithItems_Returns_OkResult_WithCharacters()
+        {
+            object obj = new();
+            var character = new ChampionItemDto()
+            {
+                Character = new List<object>() { obj, obj },
+                Item = new List<string>() { "s", "s" },
+                ItemPictureUrl = new List<string>() { "v", "v" }
+            };
+
+            _warService.Setup(s => s.GetWarCharactersWithItems()).ReturnsAsync(character);
+            var controller = new CharacterController(_warService.Object);
+
+            var result = await controller.GetWarCharactersWithItems();
+
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnedCharacters = Assert.IsType<ChampionItemDto>(okResult.Value);
+            Assert.Equal(character, returnedCharacters);
+        }
+
+
+        [Fact]
+        public async Task GetWarCharactersWithItems_Returns_NoContent_When_ServiceReturnsEmptyList()
+        {
+            var character = new ChampionItemDto()
+            {
+                Character = new List<object>(),
+                Item = new List<string>(),
+                ItemPictureUrl = new List<string>()
+            };
+
+            _warService.Setup(s => s.GetWarCharactersWithItems()).ReturnsAsync(character);
+            var controller = new CharacterController(_warService.Object);
+
+            var result = await controller.GetWarCharactersWithItems();
+
+            Assert.IsType<NoContentResult>(result.Result);
         }
     }
 }
