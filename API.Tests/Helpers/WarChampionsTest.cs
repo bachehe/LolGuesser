@@ -180,7 +180,6 @@ namespace API.Tests.Helpers
             Assert.Equal(ems, champion.MS);
         }
 
-        //TODO
         [Fact]
         public void SelectObjects_EmptyList_ReturnsNotNull()
         {
