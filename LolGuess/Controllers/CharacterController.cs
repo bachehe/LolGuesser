@@ -54,7 +54,9 @@ namespace API.Controllers
         {
             var warCharacters = await _service.GetWarCharactersWithItems();
 
-            return warCharacters == null ? BadRequest() : Ok(warCharacters);
+            if (warCharacters == null) return BadRequest();
+
+            return warCharacters.Character.Any() ? Ok(warCharacters) : NoContent();
         }
     }
 }
