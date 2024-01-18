@@ -94,5 +94,42 @@ namespace API.Tests.Controllers
 
             Assert.IsType<BadRequestResult>(result.Result);
         }
+
+        [Fact]
+        public async Task GetWarCharacters_Returns_OkResult_WithCharacters()
+        {
+            var characters = new List<CharacterDto> { new CharacterDto { } };
+            _warService.Setup(s => s.GetWarCharacters()).ReturnsAsync(characters);
+            var controller = new CharacterController(_warService.Object);
+
+            var result = await controller.GetWarCharacters();
+
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnedCharacters = Assert.IsType<List<CharacterDto>>(okResult.Value);
+            Assert.Equal(characters, returnedCharacters);
+        }
+
+        [Fact]
+        public async Task GetWarCharacters_Returns_NoContent_When_ServiceReturnsEmptyList()
+        {
+            var characters = new List<CharacterDto>();
+            _warService.Setup(s => s.GetWarCharacters()).ReturnsAsync(characters);
+            var controller = new CharacterController(_warService.Object);
+
+            var result = await controller.GetWarCharacters();
+
+            Assert.IsType<NoContentResult>(result.Result);
+        }
+
+        [Fact]
+        public async Task GetWarCharacters_Returns_BadRequest_When_ServiceReturnsNull()
+        {
+            _warService.Setup(s => s.GetWarCharacters()).ReturnsAsync((List<CharacterDto>)null);
+            var controller = new CharacterController(_warService.Object);
+
+            var result = await controller.GetWarCharacters();
+
+            Assert.IsType<BadRequestResult>(result.Result);
+        }
     }
 }
