@@ -1,5 +1,5 @@
 ﻿using API.Controllers;
-using API.DTO;
+using API.DTO.Character;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
