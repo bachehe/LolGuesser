@@ -1,10 +1,5 @@
 ﻿using API.DTO.Character;
-using API.Helpers;
 using API.Services;
-using AutoMapper;
-using Core.Entities;
-using Core.Interfaces;
-using Infrastructure.Data.Migrations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -50,7 +45,7 @@ namespace API.Controllers
         }
 
         [HttpGet("item-war")]
-        public async Task<ActionResult<IReadOnlyList<ChampionItemDto>>> GetWarCharactersWithItems()
+        public async Task<ActionResult<ChampionItemDto>> GetWarCharactersWithItems()
         {
             var warCharacters = await _service.GetWarCharactersWithItems();
 
