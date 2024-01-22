@@ -1,4 +1,4 @@
-﻿using API.DTO;
+﻿using API.DTO.Character;
 using API.Services;
 using AutoMapper;
 using Core.Entities;

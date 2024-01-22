@@ -1,4 +1,4 @@
-﻿namespace API.DTO
+﻿namespace API.DTO.Character
 {
     public class ItemDto
     {

@@ -1,4 +1,4 @@
-﻿using API.DTO;
+﻿using API.DTO.Character;
 using Core.Entities;
 using System.Reflection;
 
