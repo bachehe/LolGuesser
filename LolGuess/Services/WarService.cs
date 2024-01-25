@@ -3,10 +3,16 @@ using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
 namespace API.Services
 {
+    public interface IWarService
+    {
+        Task<IReadOnlyList<CharacterDto>> GetCharacters();
+        Task<IReadOnlyList<ItemDto>> GetAllItems();
+        Task<IEnumerable<object>> GetWarCharacters();
+        Task<ChampionItemDto> GetWarCharactersWithItems();
+    }
     public class WarService : IWarService
     {
         private readonly IGenericRepository<Character> _characterRepository;
