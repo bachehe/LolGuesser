@@ -1,4 +1,5 @@
-﻿using Core.Entities.Identity;
+﻿using API.Services;
+using Core.Entities.Identity;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace API.Extensions
             .AddEntityFrameworkStores<AppIdentityDbContext>()
             .AddSignInManager<SignInManager<AppUser>>();
 
+            services.AddScoped<IAccountService, AccountService>();
             services.AddAuthentication();
             services.AddAuthorization();
 
