@@ -22,7 +22,7 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
-            if(user == null) 
+            if (user == null)
                 return Unauthorized(new ApiResponse(401));
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
@@ -36,6 +36,23 @@ namespace API.Controllers
                 Token = "token",
                 DisplayName = user.DisplayName,
             };
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        {
+            AppUser user = new()
+            {
+                DisplayName = registerDto.DisplayName,
+                Email = registerDto.Email,
+                UserName = registerDto.Email
+            };
+
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if (!result.Succeeded) return BadRequest(new ApiResponse(400));
+
+            return new UserDto { DisplayName = user.DisplayName, Token = "token", Email = user.Email };
         }
     }
 }
