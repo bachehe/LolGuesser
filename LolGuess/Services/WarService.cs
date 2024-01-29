@@ -84,10 +84,10 @@ namespace API.Services
 
             return (championsList, itemsList);
         }
-        private List<CharacterDto> MapChampions(List<Character> characters) => new List<CharacterDto>
-            {
-                _mapper.Map<Character, CharacterDto>(characters[0]), _mapper.Map<Character, CharacterDto>(characters[1])
-            };
-
+        private List<CharacterDto> MapChampions(List<Character> characters) 
+            => new List<CharacterDto>
+                {
+                    _mapper.Map<Character, CharacterDto>(characters[0]), _mapper.Map<Character, CharacterDto>(characters[1])
+                };
     }
 }

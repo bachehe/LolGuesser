@@ -15,6 +15,5 @@ namespace Infrastructure.Data
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
             => await _ctx.Set<T>().ToListAsync();
-
     }
 }
