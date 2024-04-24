@@ -1,15 +1,12 @@
 
-# 🔥🔥🔥 LoL Guess 🔥🔥🔥
+# 🔥🔥 LoL Guesser 🔥🔥
 
-What does it do...? IT. TRANSLATES. FROM. KEY. WOW.
-This web app allows users to compare two champions from the popular game League of Legends and make a guess about which one is better. The app is designed for fun and entertainment and is not affiliated with Riot Games, the creator of League of Legends.
+This web app allows users to compare two champions from the popular game League of Legends and make a guess about which one is better.
+The app is designed for fun and entertainment and is not affiliated with Riot Games, the creator of League of Legends.
 
-To be pulished, some day, some year
-
-
+```To be pulished, some day, some year```
 
 ## What do I have?
-
  - Basic War
  - War between champion with random items
  - Database for items and champions
@@ -32,3 +29,8 @@ NO 😇🌈
 ```http
 YES 😇🌈
 
+## How to play?
+ - Run API
+ - cd to client folder
+ - ng serve
+ - enjoy
