@@ -28,9 +28,9 @@ NO 😇🌈
 
 ```http
 YES 😇🌈
-
+```
 ## How to play?
  - Run API
- - cd to client folder
+ - VSC - cd to client folder
  - ng serve
  - enjoy
